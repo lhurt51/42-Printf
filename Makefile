@@ -18,6 +18,8 @@ LFT = 	libft/
 
 LIB =	$(LFT)libft.a
 
+LFLAG =	-L libft/ -lft
+
 NAME =	printf
 
 SRCS =	main.c \
@@ -33,7 +35,7 @@ frame:
 		@echo "$(FDIR): has been created"
 
 $(NAME): $(OBJS) $(LIB)
-		@$(CC) $(FLAG) $(OBJS) -o $(NAME)
+		@$(CC) $(FLAG) $(OBJS) $(LFLAG) -o $(NAME)
 		@echo "$(NAME): has been created"
 
 frame/%.o: %.c | frame
