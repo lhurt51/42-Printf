@@ -23,6 +23,7 @@ LFLAG =	-L libft/ -lft
 NAME =	printf
 
 SRCS =	main.c \
+		itoa_base.c \
 
 FDIR = frame/
 
