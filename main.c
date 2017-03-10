@@ -26,10 +26,20 @@ char	*str_low(char *str)
 	return (str);
 }
 
-int	check_case(va_list ap, char c)
+int	printf_d(va_list ap)
+{
+	char	*tmp;
+
+	tmp = ft_itoa_base(va_arg(ap, int), 10);
+	// conv->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	return (ft_strlen(tmp));
+}
+
+int	check_conv(va_list ap, char c)
 {
 	if (c == 'd' || c == 'i')
-		ft_putnbr(va_arg(ap, int));
+		printf_d(ap);
 	else if (c == 'o' || c == 'O')
 		ft_putstr(ft_itoa_base(va_arg(ap, unsigned int), 8));
 	else if (c == 'x')
@@ -57,7 +67,7 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 		{
 			str++;
-			if (!check_case(ap, *str))
+			if (!check_conv(ap, *str))
 				return (0);
 		}
 		else
@@ -73,7 +83,7 @@ int main(void)
 	int	test;
 
 	test = (145 / 2.45);
-	printf("Test %s with this %i with %c num1:%o num2:%X %% dec:%U\n", "hel\tlo", 2147483647, 'T', -1343400,  -13452, -2147483647);
-	ft_printf("Test %s with this %i with %c num1:%o num2:%X %%\n", "hel\tlo", 2147483647, 'T', -1343400, -13452);
+	printf("Test %s with this %i with %c num1:%o num2:%12X %% dec:%U\n", "hel\tlo", -2147483647, 'T', -1343400,  -13452, -2147483647);
+	ft_printf("Test %s with this %i with %c num1:%o num2:%X %%\n", "hel\tlo", -2147483647, 'T', -1343400, -13452);
 	return (0);
 }
