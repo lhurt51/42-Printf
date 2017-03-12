@@ -18,7 +18,6 @@
 
 typedef struct		s_flags
 {
-	int				boolean:1;
 	int				plus:1;
 	int				minus:1;
 	int				space:1;
@@ -28,7 +27,6 @@ typedef struct		s_flags
 
 typedef struct		s_len
 {
-	int				boolean:1;
 	int				hh:1;
 	int				h:1;
 	int				l:1;
@@ -37,28 +35,18 @@ typedef struct		s_len
 	int				z:1;
 }					t_len;
 
-typedef struct		s_width
-{
-	int				boolean:1;
-	unsigned int	size;
-}					t_width;
-
-typedef struct		s_prec
-{
-	int				boolean:1;
-	unsigned int	size;
-}					t_prec;
-
 typedef struct		s_conv
 {
+	int				complete:1;
 	t_flags			flags;
-	t_width			width;
-	t_prec			prec;
 	t_len			len;
+	unsigned int	width;
+	unsigned int	prec;
 	unsigned int	size;
 }					t_conv;
 
 char	*ft_itoa_base(int n, int base);
+char	*ft_utoa_base(unsigned int n, int base);
 // http://www.cplusplus.com/reference/cstdio/printf/
 // https://linux.die.net/man/3/printf
 // http://man7.org/linux/man-pages/man3/stdarg.3.html

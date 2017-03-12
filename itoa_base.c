@@ -62,3 +62,40 @@ char	*ft_itoa_base(int n, int base)
 	new[i] = base_d[num % base];
 	return (new);
 }
+
+char	*utoa_store(unsigned int tmp, int base, unsigned int *count)
+{
+	char			*new;
+	unsigned int	len;
+
+	len = 0;
+	while (tmp >= (unsigned)base)
+	{
+		tmp /= base;
+		len++;
+	}
+	len++;
+	*count = len;
+	new = (char*)malloc(sizeof(char) * (*count) + 1);
+	return (new);
+}
+
+char	*ft_utoa_base(unsigned int n, int base)
+{
+	char			*base_d = "0123456789ABCDEF";
+	char			*new;
+	unsigned int	count;
+
+	count = 0;
+	new = utoa_store(n, base, &count);
+	if (!new)
+		return (NULL);
+	new[count] = '\0';
+	while (n >= (unsigned int)base)
+	{
+		new[--count] = base_d[n % base];
+		n /= base;
+	}
+	new[--count] = base_d[n % base];
+	return (new);
+}
