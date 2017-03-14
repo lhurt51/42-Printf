@@ -33,6 +33,8 @@ int	printf_d(va_list ap, t_conv *obj)
 	tmp = ft_itoa_base(va_arg(ap, int), 10);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
 	obj->size += ft_strlen(tmp);
 	ft_putstr(tmp);
 	ft_strdel(&tmp);
@@ -151,6 +153,8 @@ int		check_flag(t_conv *obj, char c)
 		obj->flags.minus = 1;
 	else if (c == '+')
 		obj->flags.plus = 1;
+	else if (c == ' ')
+		obj->flags.space = 1;
 	else
 		return (0);
 	return (1);
@@ -226,7 +230,7 @@ int main(void)
 	int	test;
 
 	test = (145 / 2.45);
-	printf("Test %s with this %U with %c num1:%#O num2:%X %% dec:%+d\n", "hel\tlo", -2147483647, 'T', 1230,  45630, -2147483647);
-	ft_printf("Test %s with this %U with %c num1:%#O num2:%X %% dec:%+d\n", "hel\tlo", -2147483647, 'T', 1230, 45630, -2147483647);
+	printf("Test %s with this % d with %c num1:%#O num2:%X %% dec:%+d\n", "hel\tlo", -2147483647, 'T', 1230,  45630, -2147483647);
+	ft_printf("Test %s with this % d with %c num1:%#O num2:%X %% dec:%+d\n", "hel\tlo", -2147483647, 'T', 1230, 45630, -2147483647);
 	return (0);
 }
