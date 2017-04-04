@@ -41,11 +41,37 @@ int	printf_d(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_D(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_ltoa_base(va_arg(ap, long), 10);
+	if (obj->flags.plus && tmp[0] != '-')
+		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int	printf_u(va_list ap, t_conv *obj)
 {
 	char	*tmp;
 
 	tmp = ft_utoa_base(va_arg(ap, unsigned int), 10);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_U(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_ultoa_base(va_arg(ap, unsigned long int), 10);
 	obj->size += ft_strlen(tmp);
 	ft_putstr(tmp);
 	ft_strdel(&tmp);
@@ -59,6 +85,36 @@ int	printf_o(va_list ap, t_conv *obj)
 	tmp = ft_utoa_base(va_arg(ap, unsigned int), 8);
 	if (obj->flags.hash && tmp[0] != '0')
 		tmp = ft_strjoin("0", tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_O(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ultoa_base(va_arg(ap, unsigned long int), 8);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_p(va_list ap, t_conv *obj)
+{
+	void			*test;
+	char			*tmp;
+
+	test = va_arg(ap, void*);
+	tmp = str_low(ft_itoa_base((int)test, 16));
+	if (tmp[0] != '0' && ft_strlen(tmp) > 6)
+		tmp = ft_strjoin("0x10", tmp);
+	else if (tmp[0] != '0' && ft_strlen(tmp) == 6)
+		tmp = ft_strjoin("0x100", tmp);
 	obj->size += ft_strlen(tmp);
 	ft_putstr(tmp);
 	ft_strdel(&tmp);
@@ -125,10 +181,16 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 {
 	if (c == 'd' || c == 'i')
 		return (printf_d(ap, obj));
-	else if (c == 'u' || c == 'U')
+	else if (c == 'D')
+		return (printf_D(ap, obj));
+	else if (c == 'u')
 		return (printf_u(ap, obj));
-	else if (c == 'o' || c == 'O')
+	else if (c == 'U')
+		return (printf_U(ap, obj));
+	else if (c == 'o')
 		return (printf_o(ap, obj));
+	else if (c == 'O')
+		return (printf_O(ap, obj));
 	else if (c == 'x')
 		return (printf_x(ap, obj));
 	else if (c == 'X')
@@ -137,6 +199,8 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 		return (printf_c(ap, obj));
 	else if (c == 's')
 		return (printf_s(ap, obj));
+	else if (c == 'p')
+		return (printf_p(ap, obj));
 	else if (c == '%')
 		return (printf_per(obj));
 	else
@@ -228,9 +292,12 @@ int	ft_printf(const char *str, ...)
 int main(void)
 {
 	int	test;
+	char *tmp;
 
+	tmp = (char*)malloc(sizeof(char) * 5);
+	tmp = "Hello\0";
 	test = (145 / 2.45);
-	printf("Test %s with this % d with %c num1:%#O num2:%X %% dec:%+d\n", "hel\tlo", -2147483647, 'T', 1230,  45630, -2147483647);
-	ft_printf("Test %s with this % d with %c num1:%#O num2:%X %% dec:%+d\n", "hel\tlo", -2147483647, 'T', 1230, 45630, -2147483647);
+	printf("Test %s with this % d with %c num1:%0lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", -2147483647, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
+	ft_printf("Test %s with this % d with %c num1:%0U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", -2147483647, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
 	return (0);
 }
