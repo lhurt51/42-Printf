@@ -37,7 +37,7 @@ typedef struct		s_len
 
 typedef struct		s_conv
 {
-	int				complete:1;
+	int				b_prec:1;
 	t_flags			flags;
 	t_len			len;
 	unsigned int	width;
