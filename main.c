@@ -32,7 +32,7 @@ char *modify_width(t_conv *obj, char *str)
 	char			*space;
 
 	len = ft_strlen(str);
-	if (obj->flags.zero)
+	if (obj->flags.zero && !obj->b_prec)
 		space = ft_strdup("0");
 	else
 		space = ft_strdup(" ");
@@ -55,6 +55,23 @@ char *modify_width(t_conv *obj, char *str)
 	return (str);
 }
 
+char *modify_prec(t_conv *obj, char *str)
+{
+	unsigned int 	len;
+	char			*ext;
+
+	len = ft_strlen(str);
+	ext = ft_strdup("0");
+	if (len < obj->prec)
+	{
+		str = ft_strjoin(ext, str);
+		while (++len < obj->prec)
+			str = ft_strjoin(ext, str);
+	}
+	ft_strdel(&ext);
+	return (str);
+}
+
 int	printf_d(va_list ap, t_conv *obj)
 {
 	char	*tmp;
@@ -64,6 +81,8 @@ int	printf_d(va_list ap, t_conv *obj)
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -81,6 +100,8 @@ int	printf_D(va_list ap, t_conv *obj)
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -94,6 +115,8 @@ int	printf_u(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_utoa_base(va_arg(ap, unsigned int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -107,6 +130,8 @@ int	printf_U(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_ultoa_base(va_arg(ap, unsigned long int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -122,6 +147,8 @@ int	printf_o(va_list ap, t_conv *obj)
 	tmp = ft_utoa_base(va_arg(ap, unsigned int), 8);
 	if (obj->flags.hash && tmp[0] != '0')
 		tmp = ft_strjoin("0", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -137,6 +164,8 @@ int	printf_O(va_list ap, t_conv *obj)
 	tmp = ft_ultoa_base(va_arg(ap, unsigned long int), 8);
 	if (obj->flags.hash && tmp[0] != '0')
 		tmp = ft_strjoin("0", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -298,9 +327,30 @@ int		check_width(t_conv *obj, const char *num)
 	return (end);
 }
 
+int		check_prec(t_conv *obj, const char *num)
+{
+	int 	end;
+	int 	tmp;
+
+	end = 1;
+	obj->b_prec = 1;
+	if (ft_isdigit(num[1]))
+	{
+		obj->prec = atoi(&num[1]);
+		tmp = obj->prec;
+		while (tmp /= 10)
+			end++;
+		end++;
+	}
+	else
+		obj->prec = 0;
+
+	return (end);
+}
+
 void	set_struct(t_conv *obj)
 {
-	obj->complete = 0;
+	obj->b_prec = 0;
 	obj->size = 0;
 	obj->flags.plus = 0;
 	obj->flags.minus = 0;
@@ -324,6 +374,8 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 		(*i)++;
 	if (str[*i] != '.' && ft_isdigit(str[*i]))
 		(*i) += check_width(obj, &str[*i]);
+	if (str[*i] == '.')
+		(*i) += check_prec(obj, &str[*i]);
 	if (!check_conv(ap, obj, str[*i]))
 		return (0);
 	(*i)++;
@@ -373,7 +425,7 @@ int main(void)
 	tmp = (char*)malloc(sizeof(char) * 5);
 	tmp = "Hello\0";
 	test = (145 / 2.45);
-	printf("Test %-10s with this %010d with %-3c num1:%0lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
-	ft_printf("Test %-10s with this %010d with %-3c num1:%0U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
+	printf("Test %-10s with this %-10.5d with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
+	ft_printf("Test %-10s with this %-10.5d with %-3c num1:%020U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
 	return (0);
 }
