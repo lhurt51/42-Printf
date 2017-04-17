@@ -245,11 +245,13 @@ int	printf_s(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = va_arg(ap, char *);
+	if (obj->prec)
+		tmp = ft_strsub(tmp, 0, obj->prec);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
 	ft_putstr(tmp);
-	// ft_strdel(&tmp);
+	ft_strdel(&tmp);
 	return (obj->size);
 }
 
@@ -425,7 +427,7 @@ int main(void)
 	tmp = (char*)malloc(sizeof(char) * 5);
 	tmp = "Hello\0";
 	test = (145 / 2.45);
-	printf("Test %-10s with this %-10.5d with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
-	ft_printf("Test %-10s with this %-10.5d with %-3c num1:%020U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
+	printf("Test %-10.3s with this %-10.5d with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
+	ft_printf("Test %-10.3s with this %-10.5d with %-3c num1:%020U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
 	return (0);
 }
