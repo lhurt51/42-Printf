@@ -72,25 +72,6 @@ char *modify_prec(t_conv *obj, char *str)
 	return (str);
 }
 
-int	printf_D(va_list ap, t_conv *obj)
-{
-	char	*tmp;
-
-	tmp = ft_ltoa_base(va_arg(ap, long), 10);
-	if (obj->flags.plus && tmp[0] != '-')
-		tmp = ft_strjoin("+", tmp);
-	if (obj->flags.space && tmp[0] != '-')
-		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
-	if (obj->width)
-		tmp = modify_width(obj, tmp);
-	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
-	ft_strdel(&tmp);
-	return (obj->size);
-}
-
 int	printf_dhh(va_list ap, t_conv *obj)
 {
 	char	*tmp;
@@ -110,10 +91,50 @@ int	printf_dhh(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_dh(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_sitoa_base(va_arg(ap, int), 10);
+	if (obj->flags.plus && tmp[0] != '-')
+		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_D(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_ltoa_base(va_arg(ap, long), 10);
+	if (obj->flags.plus && tmp[0] != '-')
+		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int call_len_d(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
 		return (printf_dhh(ap, obj));
+	if (obj->len.h)
+		return (printf_dh(ap, obj));
 	else if (obj->len.l)
 		return (printf_D(ap, obj));
 	return (0);
@@ -485,14 +506,16 @@ int	ft_printf(const char *str, ...)
 int main(void)
 {
 	int	test;
-	signed char k;
+	signed char	k;
+	short int	i;
 	char *tmp;
 
 	tmp = (char*)malloc(sizeof(char) * 5);
 	tmp = "Hello\0";
 	test = (145 / 2.45);
-	k = 20;
-	printf("Test %-10.3s with this %hhd with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", k, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
-	ft_printf("Test %-10.3s with this %hhd with %-3c num1:%020U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", k, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
+	k = -20;
+	i = -327;
+	printf("Test %-10.3s with this %hhd with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", k, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp, i);
+	ft_printf("Test %-10.3s with this %hhd with %-3c num1:%020U num2:%X %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", k, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp, i);
 	return (0);
 }

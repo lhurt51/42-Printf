@@ -50,6 +50,7 @@ char	*ft_utoa_base(unsigned int n, int base);
 char	*ft_ltoa_base(long n, int base);
 char	*ft_ultoa_base(unsigned long int n, int base);
 char	*ft_sctoa_base(signed char n, int base);
+char	*ft_sitoa_base(short int n, int base);
 // http://www.cplusplus.com/reference/cstdio/printf/
 // https://linux.die.net/man/3/printf
 // http://man7.org/linux/man-pages/man3/stdarg.3.html
