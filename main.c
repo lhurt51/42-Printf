@@ -129,14 +129,35 @@ int	printf_D(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_dll(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_lltoa_base(va_arg(ap, long long), 10);
+	if (obj->flags.plus && tmp[0] != '-')
+		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int call_len_d(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
 		return (printf_dhh(ap, obj));
-	if (obj->len.h)
+	else if (obj->len.h)
 		return (printf_dh(ap, obj));
 	else if (obj->len.l)
 		return (printf_D(ap, obj));
+	else if (obj->len.ll)
+		return (printf_dll(ap, obj));
 	return (0);
 }
 
@@ -161,11 +182,26 @@ int	printf_d(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
-int	printf_u(va_list ap, t_conv *obj)
+int	printf_uhh(va_list ap, t_conv *obj)
 {
 	char	*tmp;
 
-	tmp = ft_utoa_base(va_arg(ap, unsigned int), 10);
+	tmp = ft_usctoa_base(va_arg(ap, unsigned int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_uh(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_usitoa_base(va_arg(ap, unsigned int), 10);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
 	if (obj->width)
@@ -191,11 +227,73 @@ int	printf_U(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
-int	printf_o(va_list ap, t_conv *obj)
+int	printf_ull(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_ulltoa_base(va_arg(ap, unsigned long long int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int call_len_u(va_list ap, t_conv *obj)
+{
+	if (obj->len.hh)
+		return (printf_uhh(ap, obj));
+	else if (obj->len.h)
+		return (printf_uh(ap, obj));
+	else if (obj->len.l)
+		return (printf_U(ap, obj));
+	else if (obj->len.ll)
+		return (printf_ull(ap, obj));
+	return (0);
+}
+
+int	printf_u(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	if ((obj->size = call_len_u(ap, obj)))
+		return (obj->size);
+	tmp = ft_utoa_base(va_arg(ap, unsigned int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_ohh(va_list ap, t_conv *obj)
 {
 	char			*tmp;
 
-	tmp = ft_utoa_base(va_arg(ap, unsigned int), 8);
+	tmp = ft_usctoa_base(va_arg(ap, unsigned int), 8);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_oh(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_usitoa_base(va_arg(ap, unsigned int), 8);
 	if (obj->flags.hash && tmp[0] != '0')
 		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
@@ -213,6 +311,55 @@ int	printf_O(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = ft_ultoa_base(va_arg(ap, unsigned long int), 8);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_oll(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ulltoa_base(va_arg(ap, unsigned long long int), 8);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int call_len_o(va_list ap, t_conv *obj)
+{
+	if (obj->len.hh)
+		return (printf_ohh(ap, obj));
+	else if (obj->len.h)
+		return (printf_oh(ap, obj));
+	else if (obj->len.l)
+		return (printf_O(ap, obj));
+	else if (obj->len.ll)
+		return (printf_oll(ap, obj));
+	return (0);
+}
+
+int	printf_o(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	if ((obj->size = call_len_o(ap, obj)))
+		return (obj->size);
+	tmp = ft_utoa_base(va_arg(ap, unsigned int), 8);
 	if (obj->flags.hash && tmp[0] != '0')
 		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
@@ -244,10 +391,85 @@ int	printf_p(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_xhh(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = str_low(ft_usctoa_base(va_arg(ap, unsigned int), 16));
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_xh(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = str_low(ft_usitoa_base(va_arg(ap, unsigned int), 16));
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_xl(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = str_low(ft_ultoa_base(va_arg(ap, unsigned long int), 16));
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_xll(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = str_low(ft_ulltoa_base(va_arg(ap, unsigned long long int), 16));
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int call_len_x(va_list ap, t_conv *obj)
+{
+	if (obj->len.hh)
+		return (printf_xhh(ap, obj));
+	else if (obj->len.h)
+		return (printf_xh(ap, obj));
+	else if (obj->len.l)
+		return (printf_xl(ap, obj));
+	else if (obj->len.ll)
+		return (printf_xll(ap, obj));
+	return (0);
+}
+
 int	printf_x(va_list ap, t_conv *obj)
 {
 	char			*tmp;
 
+	if ((obj->size = call_len_x(ap, obj)))
+		return (obj->size);
 	tmp = str_low(ft_utoa_base(va_arg(ap, unsigned int), 16));
 	if (obj->flags.hash && tmp[0] != '0')
 		tmp = ft_strjoin("0x", tmp);
@@ -259,10 +481,85 @@ int	printf_x(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_Xhh(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_usctoa_base(va_arg(ap, unsigned int), 16);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_Xh(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_usitoa_base(va_arg(ap, unsigned int), 16);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_Xl(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ultoa_base(va_arg(ap, unsigned long int), 16);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_Xll(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ulltoa_base(va_arg(ap, unsigned long long int), 16);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int call_len_X(va_list ap, t_conv *obj)
+{
+	if (obj->len.hh)
+		return (printf_Xhh(ap, obj));
+	else if (obj->len.h)
+		return (printf_Xh(ap, obj));
+	else if (obj->len.l)
+		return (printf_Xl(ap, obj));
+	else if (obj->len.ll)
+		return (printf_Xll(ap, obj));
+	return (0);
+}
+
 int	printf_X(va_list ap, t_conv *obj)
 {
 	char			*tmp;
 
+	if ((obj->size = call_len_X(ap, obj)))
+		return (obj->size);
 	tmp = ft_utoa_base(va_arg(ap, unsigned int), 16);
 	if (obj->flags.hash && tmp[0] != '0')
 		tmp = ft_strjoin("0X", tmp);
@@ -403,26 +700,20 @@ int		check_prec(t_conv *obj, const char *num)
 
 int		check_len(t_conv *obj, const char *str)
 {
-	if (str[0] == 'h')
+	if (ft_strnequ(str, "hh\0", 2))
 	{
-		if (ft_strnequ(str, "hh\0", 2))
-		{
-			obj->len.hh = 1;
-			return (2);
-		}
-		else
-			obj->len.h = 1;
+		obj->len.hh = 1;
+		return (2);
+	}
+	else if (str[0] == 'h')
+		obj->len.h = 1;
+	else if (ft_strnequ(str, "ll\0", 2))
+	{
+		obj->len.ll = 1;
+		return (2);
 	}
 	else if (str[0] == 'l')
-	{
-		if (ft_strnequ(str, "ll\0", 2))
-		{
-			obj->len.ll = 1;
-			return (2);
-		}
-		else
-			obj->len.l = 1;
-	}
+		obj->len.l = 1;
 	else if (str[0] == 'j')
 		obj->len.j = 1;
 	else if (str[0] == 'z')
@@ -513,9 +804,9 @@ int main(void)
 	tmp = (char*)malloc(sizeof(char) * 5);
 	tmp = "Hello\0";
 	test = (145 / 2.45);
-	k = -20;
+	k = -87;
 	i = -327;
-	printf("Test %-10.3s with this %hhd with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", k, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp, i);
-	ft_printf("Test %-10.3s with this %hhd with %-3c num1:%020U num2:%X %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", k, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp, i);
+	printf("Test %-10.3s with this %ld with %-3c num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", 9223372036854775807, 'T', k,  9223372036854775807, -9223372036854775807, tmp, i);
+	ft_printf("Test %-10.3s with this %lld with %-3c num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", 9223372036854775807, 'T', k, 9223372036854775807, -9223372036854775807, tmp, i);
 	return (0);
 }
