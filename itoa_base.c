@@ -189,3 +189,40 @@ char	*ft_ultoa_base(unsigned long int n, int base)
 	new[--count] = base_d[n % base];
 	return (new);
 }
+
+char	*sctoa_store(signed char tmp, int base, unsigned int *count)
+{
+	char				*new;
+	signed char			len;
+
+	len = 0;
+	while (tmp >= base)
+	{
+		tmp /= base;
+		len++;
+	}
+	len++;
+	*count = len;
+	new = (char*)malloc(sizeof(char) * (*count) + 1);
+	return (new);
+}
+
+char	*ft_sctoa_base(signed char n, int base)
+{
+	char			*base_d = "0123456789ABCDEF";
+	char			*new;
+	unsigned int	count;
+
+	count = 0;
+	new = ultoa_store(n, base, &count);
+	if (!new)
+		return (NULL);
+	new[count] = '\0';
+	while (n >= base)
+	{
+		new[--count] = base_d[n % base];
+		n /= base;
+	}
+	new[--count] = base_d[n % base];
+	return (new);
+}

@@ -72,11 +72,11 @@ char *modify_prec(t_conv *obj, char *str)
 	return (str);
 }
 
-int	printf_d(va_list ap, t_conv *obj)
+int	printf_D(va_list ap, t_conv *obj)
 {
 	char	*tmp;
 
-	tmp = ft_itoa_base(va_arg(ap, int), 10);
+	tmp = ft_ltoa_base(va_arg(ap, long), 10);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
@@ -91,11 +91,41 @@ int	printf_d(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
-int	printf_D(va_list ap, t_conv *obj)
+int	printf_dhh(va_list ap, t_conv *obj)
 {
 	char	*tmp;
 
-	tmp = ft_ltoa_base(va_arg(ap, long), 10);
+	tmp = ft_sctoa_base(va_arg(ap, int), 10);
+	if (obj->flags.plus && tmp[0] != '-')
+		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int call_len_d(va_list ap, t_conv *obj)
+{
+	if (obj->len.hh)
+		return (printf_dhh(ap, obj));
+	else if (obj->len.l)
+		return (printf_D(ap, obj));
+	return (0);
+}
+
+int	printf_d(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	if ((obj->size = call_len_d(ap, obj)))
+		return (obj->size);
+	tmp = ft_itoa_base(va_arg(ap, int), 10);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
@@ -350,6 +380,37 @@ int		check_prec(t_conv *obj, const char *num)
 	return (end);
 }
 
+int		check_len(t_conv *obj, const char *str)
+{
+	if (str[0] == 'h')
+	{
+		if (ft_strnequ(str, "hh\0", 2))
+		{
+			obj->len.hh = 1;
+			return (2);
+		}
+		else
+			obj->len.h = 1;
+	}
+	else if (str[0] == 'l')
+	{
+		if (ft_strnequ(str, "ll\0", 2))
+		{
+			obj->len.ll = 1;
+			return (2);
+		}
+		else
+			obj->len.l = 1;
+	}
+	else if (str[0] == 'j')
+		obj->len.j = 1;
+	else if (str[0] == 'z')
+		obj->len.z = 1;
+	else
+		return (0);
+	return (1);
+}
+
 void	set_struct(t_conv *obj)
 {
 	obj->b_prec = 0;
@@ -378,6 +439,8 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 		(*i) += check_width(obj, &str[*i]);
 	if (str[*i] == '.')
 		(*i) += check_prec(obj, &str[*i]);
+	if (ft_isalpha(str[*i]))
+		(*i) += check_len(obj, &str[*i]);
 	if (!check_conv(ap, obj, str[*i]))
 		return (0);
 	(*i)++;
@@ -422,12 +485,14 @@ int	ft_printf(const char *str, ...)
 int main(void)
 {
 	int	test;
+	signed char k;
 	char *tmp;
 
 	tmp = (char*)malloc(sizeof(char) * 5);
 	tmp = "Hello\0";
 	test = (145 / 2.45);
-	printf("Test %-10.3s with this %-10.5d with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
-	ft_printf("Test %-10.3s with this %-10.5d with %-3c num1:%020U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", 25, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
+	k = 20;
+	printf("Test %-10.3s with this %hhd with %-3c num1:%020lu num2:%X %% dec:% ld ptr:%p\n", "hel\tlo", k, 'T', -9223372036854775807,  45630, -9223372036854775807, tmp);
+	ft_printf("Test %-10.3s with this %hhd with %-3c num1:%020U num2:%X %% dec:% D ptr:%p\n", "hel\tlo", k, 'T', -9223372036854775807, 45630, -9223372036854775807, tmp);
 	return (0);
 }
