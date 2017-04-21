@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "printf.h"
 
 char	*str_low(char *str)
@@ -571,11 +570,33 @@ int	printf_X(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_wc(va_list ap, t_conv *obj)
+{
+	char			*str;
+
+	str = wchar_to_str(va_arg(ap, wchar_t));
+	if (obj->width)
+		str = modify_width(obj, str);
+	obj->size += ft_strlen(str);
+	ft_putstr(str);
+	ft_strdel(&str);
+	return (obj->size);
+}
+
+int	call_len_c(va_list ap, t_conv *obj)
+{
+	if (obj->len.l)
+		return (printf_wc(ap, obj));
+	return (0);
+}
+
 int	printf_c(va_list ap, t_conv *obj)
 {
 	char			tmp;
 	char			*str;
 
+	if ((obj->size = call_len_c(ap, obj)))
+		return (obj->size);
 	tmp = va_arg(ap, int);
 	str = ft_strnew(1);
 	str[0] = tmp;
@@ -588,10 +609,36 @@ int	printf_c(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_ws(va_list ap, t_conv *obj)
+{
+	wchar_t			*str;
+	char			*tmp;
+
+	str = va_arg(ap, wchar_t *);
+	tmp = wstr_to_str(str);
+	if (obj->prec)
+		tmp = ft_strsub(tmp, 0, obj->prec);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	call_len_s(va_list ap, t_conv *obj)
+{
+	if (obj->len.l)
+		return (printf_ws(ap, obj));
+	return (0);
+}
+
 int	printf_s(va_list ap, t_conv *obj)
 {
 	char			*tmp;
 
+	if ((obj->size = call_len_s(ap, obj)))
+		return (obj->size);
 	tmp = va_arg(ap, char *);
 	if (obj->prec)
 		tmp = ft_strsub(tmp, 0, obj->prec);
@@ -636,8 +683,12 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 		return (printf_X(ap, obj));
 	else if (c == 'c')
 		return (printf_c(ap, obj));
+	else if (c == 'C')
+		return (printf_wc(ap, obj));
 	else if (c == 's')
 		return (printf_s(ap, obj));
+	else if (c == 'S')
+		return (printf_ws(ap, obj));
 	else if (c == 'p')
 		return (printf_p(ap, obj));
 	else if (c == '%')
@@ -796,6 +847,8 @@ int	ft_printf(const char *str, ...)
 
 int main(void)
 {
+	wchar_t *wide = L"Hello";
+	wchar_t c = 'Z';
 	int	test;
 	signed char	k;
 	short int	i;
@@ -806,7 +859,7 @@ int main(void)
 	test = (145 / 2.45);
 	k = -87;
 	i = -327;
-	printf("Test %-10.3s with this %ld with %-3c num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", 9223372036854775807, 'T', k,  9223372036854775807, -9223372036854775807, tmp, i);
-	ft_printf("Test %-10.3s with this %lld with %-3c num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", "hel\tlo", 9223372036854775807, 'T', k, 9223372036854775807, -9223372036854775807, tmp, i);
+	printf("Test %-10.3ls with this %ld with %-3lc num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", wide, 9223372036854775807, c, k,  9223372036854775807, -9223372036854775807, tmp, i);
+	ft_printf("Test %-10.3ls with this %lld with %-3lc num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", wide, 9223372036854775807, c, k, 9223372036854775807, -9223372036854775807, tmp, i);
 	return (0);
 }

@@ -14,6 +14,7 @@
 # define PRINTF_H
 
 # include "libft/libft.h"
+#include <stdio.h>
 # include <stdarg.h>
 
 typedef struct		s_flags
@@ -45,6 +46,10 @@ typedef struct		s_conv
 	unsigned int	size;
 }					t_conv;
 
+int		wchar_len(wchar_t num);
+int		wstr_len(wchar_t *str);
+char	*wchar_to_str(wchar_t num);
+char	*wstr_to_str(wchar_t *str);
 char	*ft_itoa_base(int n, int base);
 char	*ft_utoa_base(unsigned int n, int base);
 char	*ft_ltoa_base(long n, int base);
