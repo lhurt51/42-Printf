@@ -1037,6 +1037,7 @@ int	ft_printf(const char *str, ...)
 		i++;
 	}
 	ft_putstr(rtn);
+	ft_strdel(&rtn);
 	va_end(ap);
 	return (1);
 }
