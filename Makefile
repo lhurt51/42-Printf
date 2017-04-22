@@ -24,6 +24,7 @@ NAME =	printf
 
 SRCS =	main.c \
 		itoa_base.c \
+		tools.c \
 
 FDIR = frame/
 
