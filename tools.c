@@ -12,6 +12,13 @@
 
 #include "printf.h"
 
+void			*error(char *msg)
+{
+	ft_putstr("Error: ");
+	ft_putendl(msg);
+	return (NULL);
+}
+
 char	*str_low(char *str)
 {
 	int		i;

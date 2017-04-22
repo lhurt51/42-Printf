@@ -864,7 +864,7 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 	else if (c == '%')
 		return (printf_per(obj));
 	else
-		return (0);
+		return ((int)error(" No specified conversion"));
 }
 
 int		check_flag(t_conv *obj, char c)
@@ -988,37 +988,76 @@ int		any_len(t_conv *obj)
 	return (0);
 }
 
+char	*print_flag(t_conv *obj)
+{
+	if (obj->flags.plus)
+		return ("+\0");
+	else if (obj->flags.space)
+		return ("space\0");
+	else if (obj->flags.hash)
+		return ("#\0");
+	else if (obj->flags.zero)
+		return ("0\0");
+	else
+		return (NULL);
+}
+
+char	*print_len(t_conv *obj)
+{
+	if (obj->len.hh)
+		return ("hh\0");
+	else if (obj->len.h)
+		return ("h\0");
+	else if (obj->len.l)
+		return ("l\0");
+	else if (obj->len.ll)
+		return ("ll\0");
+	else if (obj->len.j)
+		return ("j\0");
+	else if (obj->len.z)
+		return ("z\0");
+	else
+		return (NULL);
+}
+
 int		flag_d(t_conv *obj)
 {
 	if (obj->flags.hash)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with flag:", print_flag(obj)))));
 	if (obj->conv == 'D' && any_len(obj))
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			" does work with any len")));
 	return (1);
 }
 
 int		flag_u(t_conv *obj)
 {
 	if (obj->flags.hash || obj->flags.plus || obj->flags.space)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with flag:", print_flag(obj)))));
 	if (obj->conv == 'U' && any_len(obj))
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			" does work with any len")));
 	return (1);
 }
 
 int		flag_o(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with flag:", print_flag(obj)))));
 	if (obj->conv == 'O' && any_len(obj))
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			" does work with any len")));
 	return (1);
 }
 
 int		flag_x(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with flag:", print_flag(obj)))));
 	return (1);
 }
 
@@ -1026,11 +1065,14 @@ int		flag_c(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space || obj->flags.hash
 		|| obj->flags.zero)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with flag:", print_flag(obj)))));
 	if (obj->len.hh || obj->len.h || obj->len.ll || obj->len.j || obj->len.z)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with len:", print_len(obj)))));
 	if (obj->conv == 'C' && any_len(obj))
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			" does work with any len")));
 	return (1);
 }
 
@@ -1038,11 +1080,14 @@ int		flag_s(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space || obj->flags.hash
 		|| obj->flags.zero)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with flag:", print_flag(obj)))));
 	if (obj->len.hh || obj->len.h || obj->len.ll || obj->len.j || obj->len.z)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with len:", print_len(obj)))));
 	if (obj->conv == 'S' && any_len(obj))
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			" does work with any len")));
 	return (1);
 }
 
@@ -1050,9 +1095,11 @@ int		flag_p(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space || obj->flags.hash
 		|| obj->flags.zero)
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			ft_strjoin(" does work with flag:", print_flag(obj)))));
 	if (any_len(obj))
-		return (0);
+		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
+			" does work with any len")));
 	return (1);
 }
 
@@ -1097,6 +1144,15 @@ char	*set_up_conv(va_list ap, const char *str, int *i)
 	return (tmp);
 }
 
+char	*first_or(char *rtn, char *tmp, int i)
+{
+	if (i == 0)
+		rtn = ft_strdup(tmp);
+	else
+		rtn = ft_strjoin(rtn, tmp);
+	return (rtn);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
@@ -1105,6 +1161,7 @@ int	ft_printf(const char *str, ...)
 	int		i;
 
 	i = 0;
+	rtn = NULL;
 	va_start(ap, str);
 	while (str[i])
 	{
@@ -1112,16 +1169,10 @@ int	ft_printf(const char *str, ...)
 			return (0);
 		if (tmp)
 		{
-			if (i == 0)
-				rtn = ft_strdup(tmp);
-			else
-				rtn = ft_strjoin(rtn, tmp);
+			rtn = first_or(rtn, tmp, i);
 			tmp = NULL;
 		}
-		if (i == 0)
-			rtn = ft_strdup(ft_strsub(&str[i], 0, 1));
-		else
-			rtn = ft_strjoin(rtn, ft_strsub(&str[i], 0, 1));
+		rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), i);
 		i++;
 	}
 	ft_putstr(rtn);
@@ -1146,6 +1197,6 @@ int main(void)
 	i = -327;
 	printf("FlagTest: %010l%\n");
 	printf("Test %-10.3ls with this %zd with %-3lc num1:%012hho num2:%lx %-3% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k,  9223372036854775807, 18446744073709551615UL, tmp, i);
-	ft_printf("Test %-10.3S with this %zd with %-3C num1:%012hho num2:%lx %-3% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k, 9223372036854775807, 18446744073709551615UL, tmp, i);
+	ft_printf("Test %-10.3ls with this %zd with %-3C num1:%012hho num2:%lx %-3% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k, 9223372036854775807, 18446744073709551615UL, tmp, i);
 	return (0);
 }
