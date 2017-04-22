@@ -38,6 +38,7 @@ typedef struct		s_len
 
 typedef struct		s_conv
 {
+	char			*rtn;
 	int				b_prec:1;
 	t_flags			flags;
 	t_len			len;

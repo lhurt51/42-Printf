@@ -85,7 +85,7 @@ int	printf_dhh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -104,7 +104,7 @@ int	printf_dh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -123,7 +123,7 @@ int	printf_D(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -142,7 +142,7 @@ int	printf_dll(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -161,7 +161,7 @@ int	printf_dj(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -180,7 +180,7 @@ int	printf_dz(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -218,7 +218,7 @@ int	printf_d(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -233,7 +233,7 @@ int	printf_uhh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -248,7 +248,7 @@ int	printf_uh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -263,7 +263,7 @@ int	printf_U(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -278,7 +278,7 @@ int	printf_ull(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -293,7 +293,7 @@ int	printf_uj(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -308,7 +308,7 @@ int	printf_uz(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -342,7 +342,7 @@ int	printf_u(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -359,7 +359,7 @@ int	printf_ohh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -376,7 +376,7 @@ int	printf_oh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -393,7 +393,7 @@ int	printf_O(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -410,7 +410,7 @@ int	printf_oll(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -427,7 +427,7 @@ int	printf_oj(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -444,7 +444,7 @@ int	printf_oz(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -480,7 +480,7 @@ int	printf_o(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -499,7 +499,7 @@ int	printf_p(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -514,7 +514,7 @@ int	printf_xhh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -529,7 +529,7 @@ int	printf_xh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -544,7 +544,7 @@ int	printf_xl(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -559,7 +559,7 @@ int	printf_xll(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -574,7 +574,7 @@ int	printf_xj(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -589,7 +589,7 @@ int	printf_xz(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -623,7 +623,7 @@ int	printf_x(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -638,7 +638,7 @@ int	printf_Xhh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -653,7 +653,7 @@ int	printf_Xh(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -668,7 +668,7 @@ int	printf_Xl(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -683,7 +683,7 @@ int	printf_Xll(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -698,7 +698,7 @@ int	printf_Xj(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -713,7 +713,7 @@ int	printf_Xz(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -747,7 +747,7 @@ int	printf_X(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -760,7 +760,7 @@ int	printf_wc(va_list ap, t_conv *obj)
 	if (obj->width)
 		str = modify_width(obj, str);
 	obj->size += ft_strlen(str);
-	ft_putstr(str);
+	obj->rtn = ft_strdup(str);
 	ft_strdel(&str);
 	return (obj->size);
 }
@@ -786,7 +786,7 @@ int	printf_c(va_list ap, t_conv *obj)
 	if (obj->width)
 		str = modify_width(obj, str);
 	obj->size += ft_strlen(str);
-	ft_putstr(str);
+	obj->rtn = ft_strdup(str);
 	ft_strdel(&str);
 	return (obj->size);
 }
@@ -803,7 +803,7 @@ int	printf_ws(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -827,7 +827,7 @@ int	printf_s(va_list ap, t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -840,7 +840,7 @@ int	printf_per(t_conv *obj)
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
-	ft_putstr(tmp);
+	obj->rtn = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	return (obj->size);
 }
@@ -992,10 +992,10 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 	return (obj->size);
 }
 
-int	set_up_conv(va_list ap, const char *str, int *i)
+char	*set_up_conv(va_list ap, const char *str, int *i)
 {
 	t_conv	*obj;
-	int		tmp;
+	char	*tmp;
 
 	obj = malloc(sizeof(t_conv));
 	if (!obj)
@@ -1003,7 +1003,8 @@ int	set_up_conv(va_list ap, const char *str, int *i)
 	set_struct(obj);
 	if (!check_all(ap, obj, str, i))
 		return (0);
-	tmp = obj->size;
+	tmp = ft_strdup(obj->rtn);
+	ft_strdel(&obj->rtn);
 	free(obj);
 	return (tmp);
 }
@@ -1011,18 +1012,31 @@ int	set_up_conv(va_list ap, const char *str, int *i)
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
+	char	*tmp;
+	char	*rtn;
 	int		i;
 
 	i = 0;
 	va_start(ap, str);
 	while (str[i])
 	{
-		if (str[i] == '%' && !set_up_conv(ap, str, &i))
+		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i)))
 			return (0);
+		if (tmp)
+		{
+			if (i == 0)
+				rtn = ft_strdup(tmp);
+			else
+				rtn = ft_strjoin(rtn, tmp);
+			tmp = NULL;
+		}
+		if (i == 0)
+			rtn = ft_strdup(ft_strsub(&str[i], 0, 1));
 		else
-			ft_putchar(str[i]);
+			rtn = ft_strjoin(rtn, ft_strsub(&str[i], 0, 1));
 		i++;
 	}
+	ft_putstr(rtn);
 	va_end(ap);
 	return (1);
 }
