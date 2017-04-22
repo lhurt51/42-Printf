@@ -18,10 +18,8 @@ char	*str_low(char *str)
 
 	i = ft_strlen(str);
 	while (i-- > 0)
-	{
 		if (ft_isupper(str[i]))
 			str[i] = ft_tolower(str[i]);
-	}
 	return (str);
 }
 
@@ -847,6 +845,7 @@ int	printf_per(t_conv *obj)
 
 int	check_conv(va_list ap, t_conv *obj, char c)
 {
+	obj->conv = c;
 	if (c == 'd' || c == 'i')
 		return (printf_d(ap, obj));
 	else if (c == 'D')
@@ -992,6 +991,104 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 	return (obj->size);
 }
 
+int		any_len(t_conv *obj)
+{
+	if (obj->len.hh || obj->len.h || obj->len.l || obj->len.ll || obj->len.j
+		|| obj->len.z)
+		return (1);
+	return (0);
+}
+
+int		flag_d(t_conv *obj)
+{
+	if (obj->flags.hash)
+		return (0);
+	if (obj->conv == 'D' && any_len(obj))
+		return (0);
+	return (1);
+}
+
+int		flag_u(t_conv *obj)
+{
+	if (obj->flags.hash || obj->flags.plus || obj->flags.space)
+		return (0);
+	if (obj->conv == 'U' && any_len(obj))
+		return (0);
+	return (1);
+}
+
+int		flag_o(t_conv *obj)
+{
+	if (obj->flags.plus || obj->flags.space)
+		return (0);
+	if (obj->conv == 'O' && any_len(obj))
+		return (0);
+	return (1);
+}
+
+int		flag_x(t_conv *obj)
+{
+	if (obj->flags.plus || obj->flags.space)
+		return (0);
+	return (1);
+}
+
+int		flag_c(t_conv *obj)
+{
+	if (obj->flags.plus || obj->flags.space || obj->flags.hash
+		|| obj->flags.zero)
+		return (0);
+	if (obj->len.hh || obj->len.h || obj->len.ll || obj->len.j || obj->len.z)
+		return (0);
+	if (obj->conv == 'C' && any_len(obj))
+		return (0);
+	return (1);
+}
+
+int		flag_s(t_conv *obj)
+{
+	if (obj->flags.plus || obj->flags.space || obj->flags.hash
+		|| obj->flags.zero)
+		return (0);
+	if (obj->len.hh || obj->len.h || obj->len.ll || obj->len.j || obj->len.z)
+		return (0);
+	if (obj->conv == 'S' && any_len(obj))
+		return (0);
+	return (1);
+}
+
+int		flag_p(t_conv *obj)
+{
+	if (obj->flags.plus || obj->flags.space || obj->flags.hash
+		|| obj->flags.zero)
+		return (0);
+	if (any_len(obj))
+		return (0);
+	return (1);
+}
+
+int		can_mix(t_conv *obj)
+{
+	if (obj->conv == 'd' || obj->conv == 'i' || obj->conv == 'D')
+		return (flag_d(obj));
+	else if (obj->conv == 'u' || obj->conv == 'U')
+		return (flag_u(obj));
+	else if (obj->conv == 'o' || obj->conv == 'O')
+		return (flag_o(obj));
+	else if (obj->conv == 'x' || obj->conv == 'X')
+		return (flag_x(obj));
+	else if (obj->conv == 'c' || obj->conv == 'C')
+		return (flag_c(obj));
+	else if (obj->conv == 's' || obj->conv == 'S')
+		return (flag_s(obj));
+	else if (obj->conv == 'p')
+		return (flag_p(obj));
+	else if (obj->conv == '%')
+		return (1);
+	else
+		return (0);
+}
+
 char	*set_up_conv(va_list ap, const char *str, int *i)
 {
 	t_conv	*obj;
@@ -1001,9 +1098,11 @@ char	*set_up_conv(va_list ap, const char *str, int *i)
 	if (!obj)
 		return (0);
 	set_struct(obj);
-	if (!check_all(ap, obj, str, i))
+	if (!check_all(ap, obj, str, i) || !can_mix(obj))
 		return (0);
 	tmp = ft_strdup(obj->rtn);
+	if (!tmp)
+		return (0);
 	ft_strdel(&obj->rtn);
 	free(obj);
 	return (tmp);
@@ -1056,7 +1155,8 @@ int main(void)
 	test = (145 / 2.45);
 	k = -87;
 	i = -327;
-	printf("Test %-10.3ls with this %zd with %-3lc num1:%012hho num2:%lx %% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k,  9223372036854775807, 18446744073709551615UL, tmp, i);
-	ft_printf("Test %-10.3ls with this %zd with %-3lc num1:%012hho num2:%lx %% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k, 9223372036854775807, 18446744073709551615UL, tmp, i);
+	printf("FlagTest: %010l%\n");
+	printf("Test %-10.3ls with this %zd with %-3lc num1:%012hho num2:%lx %-3% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k,  9223372036854775807, 18446744073709551615UL, tmp, i);
+	ft_printf("Test %-10.3S with this %zd with %-3C num1:%012hho num2:%lx %-3% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k, 9223372036854775807, 18446744073709551615UL, tmp, i);
 	return (0);
 }
