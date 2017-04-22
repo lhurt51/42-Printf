@@ -48,6 +48,7 @@ typedef struct		s_conv
 	unsigned int	size;
 }					t_conv;
 
+char	*str_low(char *str);
 int		wchar_len(wchar_t num);
 int		wstr_len(wchar_t *str);
 char	*wchar_to_str(wchar_t num);
