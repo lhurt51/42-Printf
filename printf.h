@@ -39,6 +39,7 @@ typedef struct		s_len
 typedef struct		s_conv
 {
 	char			*rtn;
+	char			conv;
 	int				b_prec:1;
 	t_flags			flags;
 	t_len			len;
@@ -47,6 +48,8 @@ typedef struct		s_conv
 	unsigned int	size;
 }					t_conv;
 
+void	*error(char *msg);
+char	*str_low(char *str);
 int		wchar_len(wchar_t num);
 int		wstr_len(wchar_t *str);
 char	*wchar_to_str(wchar_t num);

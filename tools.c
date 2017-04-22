@@ -12,6 +12,24 @@
 
 #include "printf.h"
 
+void			*error(char *msg)
+{
+	ft_putstr("Error: ");
+	ft_putendl(msg);
+	return (NULL);
+}
+
+char	*str_low(char *str)
+{
+	int		i;
+
+	i = ft_strlen(str);
+	while (i-- > 0)
+		if (ft_isupper(str[i]))
+			str[i] = ft_tolower(str[i]);
+	return (str);
+}
+
 int		wchar_len(wchar_t num)
 {
 	if (num <= 0x7F)
