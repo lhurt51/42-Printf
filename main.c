@@ -147,6 +147,44 @@ int	printf_dll(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_dj(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_jtoa_base(va_arg(ap, intmax_t), 10);
+	if (obj->flags.plus && tmp[0] != '-')
+		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_dz(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_ztoa_base(va_arg(ap, size_t), 10);
+	if (obj->flags.plus && tmp[0] != '-')
+		tmp = ft_strjoin("+", tmp);
+	if (obj->flags.space && tmp[0] != '-')
+		tmp = ft_strjoin(" ", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int call_len_d(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
@@ -157,6 +195,10 @@ int call_len_d(va_list ap, t_conv *obj)
 		return (printf_D(ap, obj));
 	else if (obj->len.ll)
 		return (printf_dll(ap, obj));
+	else if (obj->len.j)
+		return (printf_dj(ap, obj));
+	else if (obj->len.z)
+		return (printf_dz(ap, obj));
 	return (0);
 }
 
@@ -241,6 +283,36 @@ int	printf_ull(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_uj(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_ujtoa_base(va_arg(ap, uintmax_t), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_uz(va_list ap, t_conv *obj)
+{
+	char	*tmp;
+
+	tmp = ft_ztoa_base(va_arg(ap, size_t), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int call_len_u(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
@@ -251,6 +323,10 @@ int call_len_u(va_list ap, t_conv *obj)
 		return (printf_U(ap, obj));
 	else if (obj->len.ll)
 		return (printf_ull(ap, obj));
+	else if (obj->len.j)
+		return (printf_uj(ap, obj));
+	else if (obj->len.z)
+		return (printf_uz(ap, obj));
 	return (0);
 }
 
@@ -339,6 +415,40 @@ int	printf_oll(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_oj(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ujtoa_base(va_arg(ap, uintmax_t), 8);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_oz(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ztoa_base(va_arg(ap, size_t), 8);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int call_len_o(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
@@ -349,6 +459,10 @@ int call_len_o(va_list ap, t_conv *obj)
 		return (printf_O(ap, obj));
 	else if (obj->len.ll)
 		return (printf_oll(ap, obj));
+	else if (obj->len.j)
+		return (printf_oj(ap, obj));
+	else if (obj->len.z)
+		return (printf_oz(ap, obj));
 	return (0);
 }
 
@@ -450,6 +564,36 @@ int	printf_xll(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_xj(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = str_low(ft_ujtoa_base(va_arg(ap, uintmax_t), 16));
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_xz(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = str_low(ft_ztoa_base(va_arg(ap, size_t), 16));
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int call_len_x(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
@@ -460,6 +604,10 @@ int call_len_x(va_list ap, t_conv *obj)
 		return (printf_xl(ap, obj));
 	else if (obj->len.ll)
 		return (printf_xll(ap, obj));
+	else if (obj->len.j)
+		return (printf_xj(ap, obj));
+	else if (obj->len.z)
+		return (printf_xz(ap, obj));
 	return (0);
 }
 
@@ -540,6 +688,36 @@ int	printf_Xll(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
+int	printf_Xj(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ujtoa_base(va_arg(ap, uintmax_t), 16);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
+int	printf_Xz(va_list ap, t_conv *obj)
+{
+	char			*tmp;
+
+	tmp = ft_ztoa_base(va_arg(ap, size_t), 16);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	ft_putstr(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
+}
+
 int call_len_X(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
@@ -550,6 +728,10 @@ int call_len_X(va_list ap, t_conv *obj)
 		return (printf_Xl(ap, obj));
 	else if (obj->len.ll)
 		return (printf_Xll(ap, obj));
+	else if (obj->len.j)
+		return (printf_Xj(ap, obj));
+	else if (obj->len.z)
+		return (printf_Xz(ap, obj));
 	return (0);
 }
 
@@ -859,7 +1041,7 @@ int main(void)
 	test = (145 / 2.45);
 	k = -87;
 	i = -327;
-	printf("Test %-10.3ls with this %ld with %-3lc num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", wide, 9223372036854775807, c, k,  9223372036854775807, -9223372036854775807, tmp, i);
-	ft_printf("Test %-10.3ls with this %lld with %-3lc num1:%012hho num2:%lx %% dec:% ld ptr:%p et:%hd\n", wide, 9223372036854775807, c, k, 9223372036854775807, -9223372036854775807, tmp, i);
+	printf("Test %-10.3ls with this %zd with %-3lc num1:%012hho num2:%lx %% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k,  9223372036854775807, 18446744073709551615UL, tmp, i);
+	ft_printf("Test %-10.3ls with this %zd with %-3lc num1:%012hho num2:%lx %% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k, 9223372036854775807, 18446744073709551615UL, tmp, i);
 	return (0);
 }
