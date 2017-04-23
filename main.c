@@ -766,8 +766,8 @@ int	printf_c(va_list ap, t_conv *obj)
 	char			tmp;
 	char			*str;
 
-	if ((obj->size = call_len_c(ap, obj)))
-		return (obj->size);
+	// if ((obj->size = call_len_c(ap, obj)))
+	// 	return (obj->size);
 	tmp = va_arg(ap, int);
 	if (!tmp)
 	{
