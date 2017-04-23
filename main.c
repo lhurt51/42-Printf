@@ -745,7 +745,7 @@ int	printf_wc(va_list ap, t_conv *obj)
 {
 	char			*str;
 
-	str = wchar_to_str(va_arg(ap, int));
+	str = wchar_to_str(va_arg(ap, wchar_t));
 	if (obj->width)
 		str = modify_width(obj, str);
 	obj->size += ft_strlen(str);
@@ -863,7 +863,7 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 	else if (c == 'c')
 		return (printf_c(ap, obj));
 	else if (c == 'C')
-		return (printf_wc(ap, obj));
+		return (printf_c(ap, obj));
 	else if (c == 's')
 		return (printf_s(ap, obj));
 	else if (c == 'S')
