@@ -1180,23 +1180,3 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	return (1);
 }
-
-int main(void)
-{
-	wchar_t *wide = L"Hello";
-	wchar_t c = 'Z';
-	int	test;
-	signed char	k;
-	short int	i;
-	char *tmp;
-
-	tmp = (char*)malloc(sizeof(char) * 5);
-	tmp = "Hello\0";
-	test = (145 / 2.45);
-	k = -87;
-	i = -327;
-	printf("FlagTest: %010l%\n");
-	printf("Test %-10.3ls with this %zd with %-3lc num1:%012hho num2:%lx %-3% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k,  9223372036854775807, 18446744073709551615UL, tmp, i);
-	ft_printf("Test %-10.3ls with this %zd with %-3C num1:%012hho num2:%lx %-3% unsigned:%zu ptr:%p et:%hd\n", wide, 1844674407370955161, c, k, 9223372036854775807, 18446744073709551615UL, tmp, i);
-	return (0);
-}

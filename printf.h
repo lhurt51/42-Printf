@@ -14,7 +14,6 @@
 # define PRINTF_H
 
 # include "libft/libft.h"
-#include <stdio.h>
 # include <stdarg.h>
 
 typedef struct		s_flags
@@ -67,6 +66,8 @@ char	*ft_usitoa_base(unsigned short int n, int base);
 char	*ft_jtoa_base(intmax_t n, int base);
 char	*ft_ujtoa_base(uintmax_t n, int base);
 char	*ft_ztoa_base(size_t n, int base);
+int		ft_printf(const char *str, ...);
+// @$(CC) $(FLAG) $(OBJS) $(LFLAG) -o $(NAME)
 // http://www.cplusplus.com/reference/cstdio/printf/
 // https://linux.die.net/man/3/printf
 // http://man7.org/linux/man-pages/man3/stdarg.3.html
