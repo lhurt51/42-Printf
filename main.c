@@ -18,6 +18,8 @@ char *modify_width(t_conv *obj, char *str)
 	char			*space;
 
 	len = ft_strlen(str);
+	if (!len)
+		len = 1;
 	if (obj->flags.zero && !obj->b_prec)
 		space = ft_strdup("0");
 	else
@@ -769,7 +771,7 @@ int	printf_c(va_list ap, t_conv *obj)
 	tmp = va_arg(ap, int);
 	if (!tmp)
 	{
-		str = ft_strnew(1);
+		str = ft_strnew(0);
 		str[0] = '\0';
 	}
 	else
