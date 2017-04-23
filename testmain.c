@@ -3,7 +3,7 @@
 
 int main()
 {
-	printf("PRINTF: Hello%#Xtest\n", 42);
-	ft_printf("FT_PRINTF: Hello%#X%%#Xtest\n", 42);
+	printf("PRINTF: Hello%-10ctest\n", 0);
+	ft_printf("FT_PRINTF: Hello%-10ctest\n", 0);
 	return (1);
 }

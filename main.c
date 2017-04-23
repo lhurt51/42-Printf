@@ -771,7 +771,8 @@ int	printf_c(va_list ap, t_conv *obj)
 	tmp = va_arg(ap, int);
 	if (!tmp)
 	{
-		str = ft_strnew(0);
+		obj->b_con = 1;
+		str = ft_strnew(1);
 		str[0] = '\0';
 	}
 	else
@@ -955,6 +956,7 @@ int		check_len(t_conv *obj, const char *str)
 
 void	set_struct(t_conv *obj)
 {
+	obj->b_con = 0;
 	obj->b_prec = 0;
 	obj->size = 0;
 	obj->flags.plus = 0;
@@ -1134,7 +1136,7 @@ int		can_mix(t_conv *obj)
 		return (0);
 }
 
-char	*set_up_conv(va_list ap, const char *str, int *i)
+char	*set_up_conv(va_list ap, const char *str, int *i, int *b_con)
 {
 	t_conv	*obj;
 	char	*tmp;
@@ -1144,7 +1146,12 @@ char	*set_up_conv(va_list ap, const char *str, int *i)
 		return (0);
 	set_struct(obj);
 	if (!check_all(ap, obj, str, i) || !can_mix(obj))
+	{
+		*b_con = obj->b_con;
+		if (b_con)
+			(*i)++;
 		return (0);
+	}
 	tmp = ft_strdup(obj->rtn);
 	ft_strdel(&obj->rtn);
 	free(obj);
@@ -1165,6 +1172,7 @@ int	ft_printf(const char *str, ...)
 	va_list	ap;
 	char	*tmp;
 	char	*rtn;
+	int		con;
 	int		i;
 
 	i = 0;
@@ -1172,7 +1180,7 @@ int	ft_printf(const char *str, ...)
 	va_start(ap, str);
 	while (str[i])
 	{
-		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i)))
+		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
 				return (0);
 		if (tmp)
 		{
