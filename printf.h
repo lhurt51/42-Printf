@@ -39,6 +39,7 @@ typedef struct		s_conv
 {
 	char			*rtn;
 	char			conv;
+	int				b_con:1;
 	int				b_prec:1;
 	t_flags			flags;
 	t_len			len;

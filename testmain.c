@@ -3,7 +3,7 @@
 
 int main()
 {
-	printf("PRINTF: Hello %-12s\n", "working");
-	ft_printf("FT_PRINTF: Hello %-12s\n", "working");
+	printf("PRINTF: Hello%ctest\n", 0);
+	ft_printf("FT_PRINTF: Hello%ctest\n", 0);
 	return (1);
 }
