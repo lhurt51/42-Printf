@@ -745,7 +745,7 @@ int	printf_wc(va_list ap, t_conv *obj)
 {
 	char			*str;
 
-	str = wchar_to_str(va_arg(ap, wchar_t));
+	str = wchar_to_str(va_arg(ap, int));
 	if (obj->width)
 		str = modify_width(obj, str);
 	obj->size += ft_strlen(str);
