@@ -772,8 +772,7 @@ int	printf_c(va_list ap, t_conv *obj)
 	if (!tmp)
 	{
 		obj->b_con = 1;
-		str = ft_strnew(1);
-		str[0] = '\0';
+		str = ft_strnew(0);
 	}
 	else
 	{
