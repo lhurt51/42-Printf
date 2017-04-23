@@ -105,7 +105,7 @@ frame:
 		@echo "$(FDIR): has been created"
 
 $(NAME): $(OBJS) $(LIB)
-		$(L) $(NAME) $(OBJS) $(LFTOB)
+		@$(L) $(NAME) $(OBJS) $(LFTOB)
 		@$(RLIB) $(NAME)
 		@echo "$(NAME): has been created"
 
