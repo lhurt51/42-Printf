@@ -766,8 +766,8 @@ int	printf_c(va_list ap, t_conv *obj)
 	char			tmp;
 	char			*str;
 
-	if ((obj->size = call_len_c(ap, obj)))
-		return (obj->size);
+	// if ((obj->size = call_len_c(ap, obj)))
+	// 	return (obj->size);
 	tmp = va_arg(ap, int);
 	if (!tmp)
 	{
@@ -863,7 +863,7 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 	else if (c == 'c')
 		return (printf_c(ap, obj));
 	else if (c == 'C')
-		return (printf_wc(ap, obj));
+		return (printf_c(ap, obj));
 	else if (c == 's')
 		return (printf_s(ap, obj));
 	else if (c == 'S')
