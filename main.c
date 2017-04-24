@@ -481,6 +481,8 @@ int	printf_p(va_list ap, t_conv *obj)
 
 	test = va_arg(ap, void*);
 	tmp = str_low(ft_itoa_base((int)test, 16));
+	if (tmp[0] != '0' && ft_strlen(tmp) < 2)
+		tmp = ft_strjoin("0x0", tmp);
 	if (tmp[0] != '0' && ft_strlen(tmp) > 6)
 		tmp = ft_strjoin("0x10", tmp);
 	else if (tmp[0] != '0' && ft_strlen(tmp) == 6)
