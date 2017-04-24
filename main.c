@@ -815,7 +815,7 @@ int	printf_s(va_list ap, t_conv *obj)
 
 	if ((obj->size = call_len_s(ap, obj)))
 		return (obj->size);
-	tmp = va_arg(ap, char *);
+	tmp = ft_strdup(va_arg(ap, char *));
 	if (obj->prec)
 		tmp = ft_strsub(tmp, 0, obj->prec);
 	if (obj->width)
@@ -1185,8 +1185,11 @@ int	ft_printf(const char *str, ...)
 			rtn = first_or(rtn, tmp, count++);
 			tmp = NULL;
 		}
-		rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
-		i++;
+		if (str[i] != '%')
+		{
+			rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
+			i++;
+		}
 	}
 	ft_putstr(rtn);
 	ft_strdel(&rtn);

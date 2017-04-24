@@ -100,5 +100,9 @@ int main()
 	ft_printf("size_t			z = %zu sizeof z = %lu\n",z,sizeof(z));
 	ft_printf("uintmax_t		zz = %ju sizeof zz = %lu\n",zz,sizeof(zz));
 	ft_printf("unsigned long long	aa = %llu sizeof aa = %lu\n\n",aa,sizeof(aa));
+
+	int			r00 = 0;
+
+	ft_printf("Lalalala, %d%% des gens qui parlent à Ly adorent %s. Ou Presque. %p\n", 100, "Ly", &r00);
 	return (1);
 }
