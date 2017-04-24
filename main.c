@@ -1194,7 +1194,6 @@ int	ft_printf(const char *str, ...)
 	}
 	ft_putstr(rtn);
 	con = ft_strlen(rtn);
-	printf("rtn: %d\n", con);
 	ft_strdel(&rtn);
 	va_end(ap);
 	return (con);
