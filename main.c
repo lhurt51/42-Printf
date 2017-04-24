@@ -1222,7 +1222,6 @@ int	ft_printf(const char *str, ...)
 			i++;
 		}
 	}
-	str[i] = '\0';
 	ft_putstr(rtn);
 	con = ft_strlen(rtn);
 	ft_strdel(&rtn);
