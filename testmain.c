@@ -101,10 +101,12 @@ int main()
 	// ft_printf("uintmax_t		zz = %ju sizeof zz = %lu\n",zz,sizeof(zz));
 	// ft_printf("unsigned long long	aa = %llu sizeof aa = %lu\n\n",aa,sizeof(aa));
 	//
-	int			r00 = 0;
+	// int			r00 = 0;
 	//
-	ft_printf("Lalalala, %d%% des gens qui parlent à Ly adorent %s. Ou Presque. %p\n", 100, "Ly", &r00);
-	printf("%#15.8x\n", 3588976);
+	// ft_printf("Lalalala, %d%% des gens qui parlent à Ly adorent %s. Ou Presque. %p\n", 100, "Ly", &r00);
+	// printf("%#15.8x\n", 3588976);
 	// ft_printf("Lalalala, %d%% des gens qui parlent %C Ly adorent %s. Ou Presque. %d, %u, %X, %c", 100, L'à', "Ly", 2, 10, 10000, '\n', "ôHohoho");
+
+	ft_printf("%%+04d 42 == %0+04d\n", 42);
 	return (1);
 }

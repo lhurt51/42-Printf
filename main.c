@@ -922,7 +922,13 @@ int		check_width(t_conv *obj, const char *num)
 	int 	tmp;
 
 	end = 0;
-	obj->width = atoi(num);
+	if (num[0] == '0' && num[1] > '0')
+	{
+		obj->width = atoi(&num[1]);
+		end++;
+	}
+	else
+		obj->width = atoi(num);
 	tmp = obj->width;
 	while (tmp /= 10)
 		end++;
@@ -1004,7 +1010,7 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 	if (obj->flags.space)
 		while (str[*i] == ' ')
 			(*i)++;
-	if (obj->flags.plus && check_flag(obj, str[*i]))
+	if (obj->flags.zero && check_flag(obj, str[*i]))
 		(*i)++;
 	if (str[*i] != '.' && ft_isdigit(str[*i]))
 		(*i) += check_width(obj, &str[*i]);
