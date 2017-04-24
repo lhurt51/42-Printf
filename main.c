@@ -1001,8 +1001,6 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 	(*i)++;
 	if (check_flag(obj, str[*i]))
 		(*i)++;
-	// if (obj->flags.plus && check_flag(obj, str[*i]))
-	// 	(*i)++;
 	if (str[*i] != '.' && ft_isdigit(str[*i]))
 		(*i) += check_width(obj, &str[*i]);
 	if (str[*i] == '.')
@@ -1213,7 +1211,7 @@ int	ft_printf(const char *str, ...)
 			rtn = first_or(rtn, tmp, count++);
 			tmp = NULL;
 		}
-		if (str[i] != '%' && str[i])
+		if (str[i] != '%')
 		{
 			rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
 			i++;
