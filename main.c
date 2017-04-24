@@ -1001,10 +1001,10 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 	(*i)++;
 	if (check_flag(obj, str[*i]))
 		(*i)++;
-	if (obj->flag.space)
+	if (obj->flags.space)
 		while (str[*i] == ' ')
 			(*i)++;
-	if (obj->flag.plus && check_flag(obj, str[*i]))
+	if (obj->flags.plus && check_flag(obj, str[*i]))
 		(*i)++;
 	if (str[*i] != '.' && ft_isdigit(str[*i]))
 		(*i) += check_width(obj, &str[*i]);
