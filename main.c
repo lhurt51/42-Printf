@@ -65,12 +65,12 @@ int	printf_dhh(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_sctoa_base(va_arg(ap, int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -84,12 +84,12 @@ int	printf_dh(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_sitoa_base(va_arg(ap, int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -103,12 +103,12 @@ int	printf_D(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_ltoa_base(va_arg(ap, long), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -122,12 +122,12 @@ int	printf_dll(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_lltoa_base(va_arg(ap, long long), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -141,12 +141,12 @@ int	printf_dj(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_jtoa_base(va_arg(ap, intmax_t), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -160,12 +160,12 @@ int	printf_dz(va_list ap, t_conv *obj)
 	char	*tmp;
 
 	tmp = ft_ztoa_base(va_arg(ap, size_t), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -198,12 +198,12 @@ int	printf_d(va_list ap, t_conv *obj)
 	if ((obj->size = call_len_d(ap, obj)))
 		return (obj->size);
 	tmp = ft_itoa_base(va_arg(ap, int), 10);
+	if (obj->b_prec)
+		tmp = modify_prec(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->b_prec)
-		tmp = modify_prec(obj, tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -341,10 +341,10 @@ int	printf_ohh(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = ft_usctoa_base(va_arg(ap, unsigned int), 8);
-	if (obj->flags.hash && tmp[0] != '0')
-		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -358,10 +358,10 @@ int	printf_oh(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = ft_usitoa_base(va_arg(ap, unsigned int), 8);
-	if (obj->flags.hash && tmp[0] != '0')
-		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -375,10 +375,10 @@ int	printf_O(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = ft_ultoa_base(va_arg(ap, unsigned long int), 8);
-	if (obj->flags.hash && tmp[0] != '0')
-		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -392,10 +392,10 @@ int	printf_oll(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = ft_ulltoa_base(va_arg(ap, unsigned long long int), 8);
-	if (obj->flags.hash && tmp[0] != '0')
-		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -409,10 +409,10 @@ int	printf_oj(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = ft_ujtoa_base(va_arg(ap, uintmax_t), 8);
-	if (obj->flags.hash && tmp[0] != '0')
-		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -426,10 +426,10 @@ int	printf_oz(va_list ap, t_conv *obj)
 	char			*tmp;
 
 	tmp = ft_ztoa_base(va_arg(ap, size_t), 8);
-	if (obj->flags.hash && tmp[0] != '0')
-		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -462,10 +462,10 @@ int	printf_o(va_list ap, t_conv *obj)
 	if ((obj->size = call_len_o(ap, obj)))
 		return (obj->size);
 	tmp = ft_utoa_base(va_arg(ap, unsigned int), 8);
-	if (obj->flags.hash && tmp[0] != '0')
-		tmp = ft_strjoin("0", tmp);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.hash && tmp[0] != '0')
+		tmp = ft_strjoin("0", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
@@ -481,10 +481,7 @@ int	printf_p(va_list ap, t_conv *obj)
 
 	test = va_arg(ap, uintmax_t);
 	tmp = str_low(ft_ujtoa_base(test, 16));
-	// if (tmp[0] != '0' && ft_strlen(tmp) > 6)
 	tmp = ft_strjoin("0x", tmp);
-	// else if (tmp[0] != '0' && ft_strlen(tmp) == 6)
-	// 	tmp = ft_strjoin("0x100", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
