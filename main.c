@@ -766,8 +766,8 @@ int	printf_c(va_list ap, t_conv *obj)
 	char			tmp;
 	char			*str;
 
-	// if ((obj->size = call_len_c(ap, obj)))
-	// 	return (obj->size);
+	if ((obj->size = call_len_c(ap, obj)))
+		return (obj->size);
 	tmp = va_arg(ap, int);
 	if (!tmp)
 	{
@@ -863,7 +863,7 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 	else if (c == 'c')
 		return (printf_c(ap, obj));
 	else if (c == 'C')
-		return (printf_c(ap, obj));
+		return (printf_wc(ap, obj));
 	else if (c == 's')
 		return (printf_s(ap, obj));
 	else if (c == 'S')
@@ -1172,6 +1172,7 @@ int	ft_printf(const char *str, ...)
 	char	*tmp;
 	char	*rtn;
 	int		con;
+	int		count;
 	int		i;
 
 	i = 0;
@@ -1179,14 +1180,16 @@ int	ft_printf(const char *str, ...)
 	va_start(ap, str);
 	while (str[i])
 	{
+		count = i;
 		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
 				return (0);
 		if (tmp)
 		{
-			rtn = first_or(rtn, tmp, i);
+			rtn = first_or(rtn, tmp, count);
+			count++;
 			tmp = NULL;
 		}
-		rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), i);
+		rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
 		i++;
 	}
 	ft_putstr(rtn);
