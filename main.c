@@ -1001,7 +1001,7 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 	(*i)++;
 	if (check_flag(obj, str[*i]))
 		(*i)++;
-	if (obj->flag.plus && check_flag(obj, str[*i]))
+	if (obj->flags.plus && check_flag(obj, str[*i]))
 		(*i)++;
 	if (str[*i] != '.' && ft_isdigit(str[*i]))
 		(*i) += check_width(obj, &str[*i]);
@@ -1219,7 +1219,6 @@ int	ft_printf(const char *str, ...)
 			i++;
 		}
 	}
-	str[i] = '\0';
 	ft_putstr(rtn);
 	con = ft_strlen(rtn);
 	ft_strdel(&rtn);
