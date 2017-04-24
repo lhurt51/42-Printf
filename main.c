@@ -741,33 +741,31 @@ int	printf_X(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
-int	printf_wc(va_list ap, t_conv *obj)
-{
-	char			*str;
-
-	str = wchar_to_str(va_arg(ap, wchar_t));
-	if (obj->width)
-		str = modify_width(obj, str);
-	obj->size += ft_strlen(str);
-	obj->rtn = ft_strdup(str);
-	ft_strdel(&str);
-	return (obj->size);
-}
-
-int	call_len_c(va_list ap, t_conv *obj)
-{
-	if (obj->len.l)
-		return (printf_wc(ap, obj));
-	return (0);
-}
+// int	printf_wc(va_list ap, t_conv *obj)
+// {
+// 	char			*str;
+//
+// 	str = wchar_to_str(va_arg(ap, wchar_t));
+// 	if (obj->width)
+// 		str = modify_width(obj, str);
+// 	obj->size += ft_strlen(str);
+// 	obj->rtn = ft_strdup(str);
+// 	ft_strdel(&str);
+// 	return (obj->size);
+// }
+//
+// int	call_len_c(va_list ap, t_conv *obj)
+// {
+// 	if (obj->len.l)
+// 		return (printf_wc(ap, obj));
+// 	return (0);
+// }
 
 int	printf_c(va_list ap, t_conv *obj)
 {
 	char			tmp;
 	char			*str;
 
-	// if ((obj->size = call_len_c(ap, obj)))
-	// 	return (obj->size);
 	tmp = va_arg(ap, int);
 	if (!tmp)
 	{
@@ -1146,8 +1144,7 @@ char	*set_up_conv(va_list ap, const char *str, int *i, int *b_con)
 	set_struct(obj);
 	if (!check_all(ap, obj, str, i) || !can_mix(obj))
 	{
-		*b_con = obj->b_con;
-		if (b_con)
+		if ((*b_con = obj->b_con))
 			(*i)++;
 		return (0);
 	}
@@ -1185,8 +1182,7 @@ int	ft_printf(const char *str, ...)
 				return (0);
 		if (tmp)
 		{
-			rtn = first_or(rtn, tmp, count);
-			count++;
+			rtn = first_or(rtn, tmp, count++);
 			tmp = NULL;
 		}
 		rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
