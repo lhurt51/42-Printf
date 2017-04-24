@@ -1192,7 +1192,8 @@ int	ft_printf(const char *str, ...)
 		}
 	}
 	ft_putstr(rtn);
+	con = ft_strlen(rtn);
 	ft_strdel(&rtn);
 	va_end(ap);
-	return (1);
+	return (con);
 }
