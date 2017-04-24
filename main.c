@@ -476,15 +476,15 @@ int	printf_o(va_list ap, t_conv *obj)
 
 int	printf_p(va_list ap, t_conv *obj)
 {
-	void			*test;
+	uintmax_t		test;
 	char			*tmp;
 
-	test = va_arg(ap, void*);
-	tmp = str_low(ft_itoa_base((int)test, 16));
-	if (tmp[0] != '0' && ft_strlen(tmp) > 6)
-		tmp = ft_strjoin("0x10", tmp);
-	else if (tmp[0] != '0' && ft_strlen(tmp) == 6)
-		tmp = ft_strjoin("0x100", tmp);
+	test = va_arg(ap, uintmax_t);
+	tmp = str_low(ft_ujtoa_base(test, 16));
+	// if (tmp[0] != '0' && ft_strlen(tmp) > 6)
+	tmp = ft_strjoin("0x", tmp);
+	// else if (tmp[0] != '0' && ft_strlen(tmp) == 6)
+	// 	tmp = ft_strjoin("0x100", tmp);
 	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
