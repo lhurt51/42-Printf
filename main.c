@@ -17,7 +17,7 @@ char *modify_width(t_conv *obj, char *str)
 	unsigned int 	len;
 	char			*space;
 
-	len = ft_strlen(str) - obj->flags.plus - obj->flags.space;
+	len = ft_strlen(str) - obj->flags.plus;
 	printf("%d\n", len);
 	if (!len)
 		len = 1;
