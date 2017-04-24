@@ -17,7 +17,8 @@ char *modify_width(t_conv *obj, char *str)
 	unsigned int 	len;
 	char			*space;
 
-	len = ft_strlen(str);
+	len = ft_strlen(str) - obj->flags.plus - obj->flags.space;
+	printf("%d\n", len);
 	if (!len)
 		len = 1;
 	if (obj->flags.zero && !obj->b_prec)
@@ -67,8 +68,6 @@ int	printf_dhh(va_list ap, t_conv *obj)
 	tmp = ft_sctoa_base(va_arg(ap, int), 10);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
-	if (obj->width)
-		tmp = modify_width(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
