@@ -67,13 +67,13 @@ int	printf_dhh(va_list ap, t_conv *obj)
 	tmp = ft_sctoa_base(va_arg(ap, int), 10);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
-	if (obj->flags.zero && obj->width)
+	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (!obj->flags.zero && obj->width)
+	if (obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
 	obj->rtn = ft_strdup(tmp);
@@ -202,11 +202,13 @@ int	printf_d(va_list ap, t_conv *obj)
 	tmp = ft_itoa_base(va_arg(ap, int), 10);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
+	if (obj->flags.zero && obj->width)
+		tmp = modify_width(obj, tmp);
 	if (obj->flags.plus && tmp[0] != '-')
 		tmp = ft_strjoin("+", tmp);
 	if (obj->flags.space && tmp[0] != '-')
 		tmp = ft_strjoin(" ", tmp);
-	if (obj->width)
+	if (!obj->flags.zero && obj->width)
 		tmp = modify_width(obj, tmp);
 	obj->size += ft_strlen(tmp);
 	obj->rtn = ft_strdup(tmp);
