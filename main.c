@@ -1174,6 +1174,7 @@ int	ft_printf(const char *str, ...)
 
 	i = 0;
 	rtn = NULL;
+	tmp = NULL;
 	va_start(ap, str);
 	while (str[i])
 	{
@@ -1193,6 +1194,7 @@ int	ft_printf(const char *str, ...)
 	}
 	ft_putstr(rtn);
 	con = ft_strlen(rtn);
+	printf("rtn: %d\n", con);
 	ft_strdel(&rtn);
 	va_end(ap);
 	return (con);
