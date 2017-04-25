@@ -1239,7 +1239,8 @@ int	ft_printf(const char *str, ...)
 		if (str[i] != '%')
 		{
 			rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
-			i++;
+			if (str[i])
+				i++;
 		}
 	}
 	ft_putstr(rtn);
