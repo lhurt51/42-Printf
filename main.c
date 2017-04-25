@@ -798,7 +798,7 @@ int	printf_c(va_list ap, t_conv *obj)
 	if (!tmp)
 	{
 		obj->b_con = 1;
-		str = ft_strnew(0);
+		str = ft_strdup("");
 	}
 	else
 	{
@@ -839,11 +839,22 @@ int	call_len_s(va_list ap, t_conv *obj)
 
 int	printf_s(va_list ap, t_conv *obj)
 {
-	char			*tmp;
+	char		*holder;
+	char		*tmp;
 
 	if ((obj->size = call_len_s(ap, obj)))
 		return (obj->size);
-	tmp = ft_strdup(va_arg(ap, char *));
+	holder = va_arg(ap, char *);
+	if (!holder)
+	{
+		obj->b_con = 1;
+		if (!obj->prec || obj->prec >= 6)
+			tmp = ft_strdup("(NULL)");
+		else
+			tmp = ft_strdup("");
+	}
+	else
+		tmp = ft_strdup(holder);
 	if (obj->prec)
 		tmp = ft_strsub(tmp, 0, obj->prec);
 	if (obj->width)
