@@ -849,7 +849,7 @@ int	printf_s(va_list ap, t_conv *obj)
 	{
 		obj->b_con = 1;
 		if (!obj->prec || obj->prec >= 6)
-			tmp = ft_strdup("(NULL)");
+			tmp = ft_strdup("(null)");
 		else
 			tmp = ft_strdup("");
 	}
