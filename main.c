@@ -1215,19 +1215,14 @@ char	*first_or(char *rtn, char *tmp, int i)
 	return (rtn);
 }
 
-int	ft_printf(const char *str, ...)
+char	*search_string(va_list ap, const char *str, int i, int con)
 {
-	va_list	ap;
 	char	*tmp;
 	char	*rtn;
-	int		con;
-	int		count;
-	int		i;
+	int 	count;
 
-	i = 0;
 	rtn = NULL;
 	tmp = NULL;
-	va_start(ap, str);
 	while (str[i])
 	{
 		count = i;
@@ -1245,9 +1240,27 @@ int	ft_printf(const char *str, ...)
 				i++;
 		}
 	}
+
+	return (rtn);
+}
+
+int	ft_printf(const char *str, ...)
+{
+	va_list	ap;
+	char	*rtn;
+	int		count;
+	int		con;
+	int		i;
+
+	i = 0;
+	con = 0;
+	va_start(ap, str);
+	rtn = search_string(ap, str, i, con);
+	if (!rtn)
+		return (0);
 	ft_putstr(rtn);
-	con = ft_strlen(rtn);
+	count = ft_strlen(rtn);
 	ft_strdel(&rtn);
 	va_end(ap);
-	return (con);
+	return (count);
 }
