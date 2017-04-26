@@ -1215,11 +1215,11 @@ char	*first_or(char *rtn, char *tmp, int i)
 	return (rtn);
 }
 
-char	*search_string(va_list ap, const char *str, int i, int con)
+char	*search_string(va_list ap, const char *str, int i, int count)
 {
 	char	*tmp;
 	char	*rtn;
-	int 	count;
+	int 	con;
 
 	rtn = NULL;
 	tmp = NULL;
@@ -1227,7 +1227,7 @@ char	*search_string(va_list ap, const char *str, int i, int con)
 	{
 		count = i;
 		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
-				return (0);
+				return (NULL);
 		if (tmp)
 		{
 			rtn = first_or(rtn, tmp, count++);
@@ -1247,33 +1247,30 @@ char	*search_string(va_list ap, const char *str, int i, int con)
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
-	char	*tmp;
 	char	*rtn;
 	int		con;
-	int		count;
-	int		i;
 
-	i = 0;
-	rtn = NULL;
-	tmp = NULL;
 	va_start(ap, str);
-	while (str[i])
-	{
-		count = i;
-		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
-				return (0);
-		if (tmp)
-		{
-			rtn = first_or(rtn, tmp, count++);
-			tmp = NULL;
-		}
-		if (str[i] != '%')
-		{
-			rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
-			if (str[i])
-				i++;
-		}
-	}
+	rtn = search_string(ap, str, 0, 0);
+	if (!rtn)
+		return (0);
+	// while (str[i])
+	// {
+	// 	count = i;
+	// 	if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
+	// 			return (0);
+	// 	if (tmp)
+	// 	{
+	// 		rtn = first_or(rtn, tmp, count++);
+	// 		tmp = NULL;
+	// 	}
+	// 	if (str[i] != '%')
+	// 	{
+	// 		rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
+	// 		if (str[i])
+	// 			i++;
+	// 	}
+	// }
 	ft_putstr(rtn);
 	con = ft_strlen(rtn);
 	ft_strdel(&rtn);
