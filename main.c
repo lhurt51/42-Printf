@@ -1250,6 +1250,7 @@ int	ft_printf(const char *str, ...)
 	char	*rtn;
 	int		con;
 
+	rtn = NULL;
 	va_start(ap, str);
 	rtn = search_string(ap, str, 0, con);
 	if (!rtn)
