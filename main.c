@@ -1215,45 +1215,48 @@ char	*first_or(char *rtn, char *tmp, int i)
 	return (rtn);
 }
 
-char	*search_string(va_list ap, const char *str, int i, int count)
+int	search_string(va_list ap, const char *str, char **rtn, int i)
 {
 	char	*tmp;
-	char	*rtn;
-	int 	con;
+	int		con;
+	int 	count;
 
-	rtn = NULL;
 	tmp = NULL;
 	while (str[i])
 	{
 		count = i;
 		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
-				return (NULL);
+				return (0);
 		if (tmp)
 		{
-			rtn = first_or(rtn, tmp, count++);
+			*rtn = first_or(*rtn, tmp, count++);
 			tmp = NULL;
 		}
 		if (str[i] != '%')
 		{
-			rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
+			*rtn = first_or(*rtn, ft_strsub(&str[i], 0, 1), count);
 			if (str[i])
 				i++;
 		}
 	}
 
-	return (rtn);
+	return (1);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
+	// char	*tmp;
 	char	*rtn;
 	int		con;
+	// int		count;
+	int		i;
 
+	i = 0;
 	rtn = NULL;
+	// tmp = NULL;
 	va_start(ap, str);
-	rtn = search_string(ap, str, 0, con);
-	if (!rtn)
+	if (!search_string(ap, str, &rtn, 0))
 		return (0);
 	// while (str[i])
 	// {
