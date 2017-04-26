@@ -12,14 +12,6 @@
 
 #include "printf.h"
 
-char *join_str(char *str1, char *str2, int width, unsigned int *len)
-{
-	str1 = ft_strjoin(str1, str2);
-	while (++(*len) < (unsigned)width)
-		str1 = ft_strjoin(str1, str2);
-	return (str1);
-}
-
 char *modify_width(t_conv *obj, char *str)
 {
 	unsigned int 	len;
@@ -35,9 +27,17 @@ char *modify_width(t_conv *obj, char *str)
 	if (len < obj->width)
 	{
 		if (obj->flags.minus)
-			str = join_str(str, space, obj->width, &len);
+		{
+			str = ft_strjoin(str, space);
+			while (++len < obj->width)
+				str = ft_strjoin(str, space);
+		}
 		else
-			str = join_str(space, str, obj->width, &len);
+		{
+			str = ft_strjoin(space, str);
+			while (++len < obj->width)
+				str = ft_strjoin(space, str);
+		}
 	}
 	ft_strdel(&space);
 	return (str);
