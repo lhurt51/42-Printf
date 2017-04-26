@@ -35,9 +35,9 @@ char *modify_width(t_conv *obj, char *str)
 	if (len < obj->width)
 	{
 		if (obj->flags.minus)
-			join_str(str, space, obj->width, len);
+			str = join_str(str, space, obj->width, len);
 		else
-			join_str(str, space, obj->width, len);
+			str = join_str(str, space, obj->width, len);
 	}
 	ft_strdel(&space);
 	return (str);
