@@ -1247,20 +1247,36 @@ char	*search_string(va_list ap, const char *str, int i, int con)
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
+	char	*tmp;
 	char	*rtn;
-	int		count;
 	int		con;
+	int		count;
 	int		i;
 
 	i = 0;
-	con = 0;
+	rtn = NULL;
+	tmp = NULL;
 	va_start(ap, str);
-	rtn = search_string(ap, str, i, con);
-	if (!rtn)
-		return (0);
+	while (str[i])
+	{
+		count = i;
+		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
+				return (0);
+		if (tmp)
+		{
+			rtn = first_or(rtn, tmp, count++);
+			tmp = NULL;
+		}
+		if (str[i] != '%')
+		{
+			rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
+			if (str[i])
+				i++;
+		}
+	}
 	ft_putstr(rtn);
-	count = ft_strlen(rtn);
+	con = ft_strlen(rtn);
 	ft_strdel(&rtn);
 	va_end(ap);
-	return (count);
+	return (con);
 }
