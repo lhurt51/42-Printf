@@ -1251,7 +1251,7 @@ int	ft_printf(const char *str, ...)
 	int		con;
 
 	va_start(ap, str);
-	rtn = search_string(ap, str, 0, 0);
+	rtn = search_string(ap, str, 0, con);
 	if (!rtn)
 		return (0);
 	// while (str[i])
