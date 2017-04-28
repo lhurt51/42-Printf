@@ -798,6 +798,7 @@ int	printf_c(va_list ap, t_conv *obj)
 	{
 		obj->b_con = 1;
 		str = ft_strdup("");
+		ft_putchar('\0');
 	}
 	else
 	{
@@ -1212,19 +1213,14 @@ char	*first_or(char *rtn, char *tmp, int i)
 	return (rtn);
 }
 
-int	ft_printf(const char *str, ...)
+int		search_params(va_list ap, const char *str, char **rtn, int count)
 {
-	va_list	ap;
 	char	*tmp;
-	char	*rtn;
-	int		con;
-	int		count;
 	int		i;
+	int		con;
 
 	i = 0;
-	rtn = NULL;
 	tmp = NULL;
-	va_start(ap, str);
 	while (str[i])
 	{
 		count = i;
@@ -1232,19 +1228,33 @@ int	ft_printf(const char *str, ...)
 				return (0);
 		if (tmp)
 		{
-			rtn = first_or(rtn, tmp, count++);
+			*rtn = first_or(*rtn, tmp, count++);
 			tmp = NULL;
 		}
 		if (str[i] != '%')
 		{
-			rtn = first_or(rtn, ft_strsub(&str[i], 0, 1), count);
+			*rtn = first_or(*rtn, ft_strsub(&str[i], 0, 1), count);
 			if (str[i])
 				i++;
 		}
 	}
+
+	return (1);
+}
+
+int		ft_printf(const char *str, ...)
+{
+	va_list	ap;
+	char	*rtn;
+	int		len;
+
+	rtn = NULL;
+	va_start(ap, str);
+	if (!search_params(ap, str, &rtn, 0))
+		return (0);
 	ft_putstr(rtn);
-	con = ft_strlen(rtn);
+	len = ft_strlen(rtn);
 	ft_strdel(&rtn);
 	va_end(ap);
-	return (con);
+	return (len);
 }
