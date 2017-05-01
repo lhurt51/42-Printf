@@ -43,7 +43,7 @@ char *modify_width(t_conv *obj, char *str)
 	else
 		space = ft_strdup(" ");
 	if (len < obj->width)
-		switch_width(obj, str, space, len);
+		str = switch_width(obj, str, space, len);
 	ft_strdel(&space);
 	return (str);
 }
