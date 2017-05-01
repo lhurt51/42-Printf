@@ -179,30 +179,49 @@ int	printf_dz(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
-int call_len_d(va_list ap, t_conv *obj)
+// int call_len_d(va_list ap, t_conv *obj)
+// {
+// 	if (obj->len.hh)
+// 		return (printf_dhh(ap, obj));
+// 	else if (obj->len.h)
+// 		return (printf_dh(ap, obj));
+// 	else if (obj->len.l)
+// 		return (printf_D(ap, obj));
+// 	else if (obj->len.ll)
+// 		return (printf_dll(ap, obj));
+// 	else if (obj->len.j)
+// 		return (printf_dj(ap, obj));
+// 	else if (obj->len.z)
+// 		return (printf_dz(ap, obj));
+// 	return (0);
+// }
+
+char *call_len_d(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
-		return (printf_dhh(ap, obj));
+		return (ft_sctoa_base(va_arg(ap, int), 10));
 	else if (obj->len.h)
-		return (printf_dh(ap, obj));
+		return (ft_sitoa_base(va_arg(ap, int), 10));
 	else if (obj->len.l)
-		return (printf_D(ap, obj));
+		return (ft_ltoa_base(va_arg(ap, long), 10));
 	else if (obj->len.ll)
-		return (printf_dll(ap, obj));
+		return (ft_lltoa_base(va_arg(ap, long long), 10));
 	else if (obj->len.j)
-		return (printf_dj(ap, obj));
+		return (ft_jtoa_base(va_arg(ap, intmax_t), 10));
 	else if (obj->len.z)
-		return (printf_dz(ap, obj));
-	return (0);
+		return (ft_ztoa_base(va_arg(ap, size_t), 10));
+	else
+		return (ft_itoa_base(va_arg(ap, int), 10));
 }
 
 int	printf_d(va_list ap, t_conv *obj)
 {
 	char	*tmp;
 
-	if ((obj->size = call_len_d(ap, obj)))
-		return (obj->size);
-	tmp = ft_itoa_base(va_arg(ap, int), 10);
+	// if ((obj->size = call_len_d(ap, obj)))
+	// 	return (obj->size);
+	// tmp = ft_itoa_base(va_arg(ap, int), 10);
+	tmp = call_len_d(ap, obj);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
 	if (obj->flags.zero && obj->width)
