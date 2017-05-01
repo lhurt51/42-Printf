@@ -12,6 +12,24 @@
 
 #include "printf.h"
 
+char *switch_width(t_conv *obj, char *str, char *space, unsigned int len)
+{
+	if (obj->flags.minus)
+	{
+		str = ft_strjoin(str, space);
+		while (++len < obj->width)
+			str = ft_strjoin(str, space);
+	}
+	else
+	{
+		str = ft_strjoin(space, str);
+		while (++len < obj->width)
+			str = ft_strjoin(space, str);
+	}
+
+	return (str);
+}
+
 char *modify_width(t_conv *obj, char *str)
 {
 	unsigned int 	len;
@@ -25,20 +43,7 @@ char *modify_width(t_conv *obj, char *str)
 	else
 		space = ft_strdup(" ");
 	if (len < obj->width)
-	{
-		if (obj->flags.minus)
-		{
-			str = ft_strjoin(str, space);
-			while (++len < obj->width)
-				str = ft_strjoin(str, space);
-		}
-		else
-		{
-			str = ft_strjoin(space, str);
-			while (++len < obj->width)
-				str = ft_strjoin(space, str);
-		}
-	}
+		switch_width(obj, str, space, len);
 	ft_strdel(&space);
 	return (str);
 }
