@@ -65,6 +65,12 @@ char *modify_prec(t_conv *obj, char *str)
 	return (str);
 }
 
+int	printf_D(va_list ap, t_conv *obj)
+{
+	obj->len.l = 1;
+	return (printf_d(ap, obj));
+}
+
 char *call_len_d(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
@@ -774,10 +780,7 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 	if (c == 'd' || c == 'i')
 		return (printf_d(ap, obj));
 	else if (c == 'D')
-	{
-		obj->len.l = 1;
-		return (printf_d(ap, obj));
-	}
+		return (printf_D(ap, obj));
 	else if (c == 'u')
 		return (printf_u(ap, obj));
 	else if (c == 'U')
@@ -933,7 +936,7 @@ int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
 
 int		any_len(t_conv *obj)
 {
-	if (obj->len.hh || obj->len.h || obj->len.l || obj->len.ll || obj->len.j
+	if (obj->len.hh || obj->len.h || obj->len.ll || obj->len.j
 		|| obj->len.z)
 		return (1);
 	return (0);
@@ -1018,7 +1021,7 @@ int		flag_c(t_conv *obj)
 		|| obj->flags.zero)
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with flag:", print_flag(obj)))));
-	if (obj->len.hh || obj->len.h || obj->len.ll || obj->len.j || obj->len.z)
+	if (any_len(obj))
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with len:", print_len(obj)))));
 	if (obj->conv == 'C' && any_len(obj))
@@ -1033,7 +1036,7 @@ int		flag_s(t_conv *obj)
 		|| obj->flags.zero)
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with flag:", print_flag(obj)))));
-	if (obj->len.hh || obj->len.h || obj->len.ll || obj->len.j || obj->len.z)
+	if (any_len(obj))
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with len:", print_len(obj)))));
 	if (obj->conv == 'S' && any_len(obj))
