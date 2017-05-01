@@ -190,22 +190,6 @@ int	printf_O(va_list ap, t_conv *obj)
 	return (printf_o(ap, obj));
 }
 
-int	printf_p(va_list ap, t_conv *obj)
-{
-	uintmax_t		test;
-	char			*tmp;
-
-	test = va_arg(ap, uintmax_t);
-	tmp = str_low(ft_ujtoa_base(test, 16));
-	tmp = ft_strjoin("0x", tmp);
-	if (obj->width)
-		tmp = modify_width(obj, tmp);
-	obj->size += ft_strlen(tmp);
-	obj->rtn = ft_strdup(tmp);
-	ft_strdel(&tmp);
-	return (obj->size);
-}
-
 char *call_len_x(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
@@ -339,6 +323,22 @@ int	printf_ws(va_list ap, t_conv *obj)
 {
 	obj->len.l = 1;
 	return (printf_s(ap, obj));
+}
+
+int	printf_p(va_list ap, t_conv *obj)
+{
+	uintmax_t		test;
+	char			*tmp;
+
+	test = va_arg(ap, uintmax_t);
+	tmp = str_low(ft_ujtoa_base(test, 16));
+	tmp = ft_strjoin("0x", tmp);
+	if (obj->width)
+		tmp = modify_width(obj, tmp);
+	obj->size += ft_strlen(tmp);
+	obj->rtn = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	return (obj->size);
 }
 
 int	printf_per(t_conv *obj)
