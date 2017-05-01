@@ -774,7 +774,10 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 	if (c == 'd' || c == 'i')
 		return (printf_d(ap, obj));
 	else if (c == 'D')
-		return (printf_D(ap, obj));
+	{
+		obj->len.l = 1;
+		return (printf_d(ap, obj));
+	}
 	else if (c == 'u')
 		return (printf_u(ap, obj));
 	else if (c == 'U')
