@@ -1051,7 +1051,7 @@ int		flag_p(t_conv *obj)
 		|| obj->flags.zero)
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with flag:", print_flag(obj)))));
-	if (any_len(obj))
+	if (any_len(obj) || obj->len.l)
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			" does work with any len")));
 	return (1);
