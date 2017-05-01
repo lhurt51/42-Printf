@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
 #include "printf.h"
 
 char	*itoa_store(long *num, int base, int *i, int *count)
