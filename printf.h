@@ -13,8 +13,8 @@
 #ifndef PRINTF_H
 # define PRINTF_H
 
-# include "libft/libft.h"
 # include <stdarg.h>
+# include "libft/libft.h"
 # include "includes/struct_func.h"
 # include "includes/str_func.h"
 
