@@ -14,8 +14,8 @@
 
 int		check_width(t_conv *obj, const char *num)
 {
-	int 	end;
-	int 	tmp;
+	int	end;
+	int	tmp;
 
 	end = 0;
 	if (num[0] == '0' && num[1] > '0')
@@ -34,8 +34,8 @@ int		check_width(t_conv *obj, const char *num)
 
 int		check_prec(t_conv *obj, const char *num)
 {
-	int 	end;
-	int 	tmp;
+	int	end;
+	int	tmp;
 
 	end = 1;
 	obj->b_prec = 1;
@@ -49,11 +49,10 @@ int		check_prec(t_conv *obj, const char *num)
 	}
 	else
 		obj->prec = 0;
-
 	return (end);
 }
 
-int	check_all(va_list ap, t_conv *obj, const char *str, int *i)
+int		check_all(va_list ap, t_conv *obj, const char *str, int *i)
 {
 	(*i)++;
 	if (check_flag(obj, str[*i]))

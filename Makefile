@@ -95,7 +95,7 @@ SRCS =	main.c \
 		printf_u.c \
 		printf_o.c \
 		printf_x.c \
-		printf_X.c \
+		printf_lx.c \
 		printf_s.c \
 		printf_extra.c \
 		modifiers.c \
@@ -106,6 +106,12 @@ SRCS =	main.c \
 		errors.c \
 		errors1.c \
 		itoa_base.c \
+		l_lltoa_base.c \
+		u_ujtoa_base.c \
+		ul_ulltoa_base.c \
+		usc_usitoa_base.c \
+		sc_sitoa_base.c \
+		z_jtoa_base.c \
 		tools.c \
 		wstr_helpers.c \
 

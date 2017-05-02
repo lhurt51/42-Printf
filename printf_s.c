@@ -20,7 +20,7 @@ char	*call_len_s(va_list ap, t_conv *obj)
 		return (va_arg(ap, char *));
 }
 
-int	printf_s(va_list ap, t_conv *obj)
+int		printf_s(va_list ap, t_conv *obj)
 {
 	char		*holder;
 	char		*tmp;
@@ -46,7 +46,7 @@ int	printf_s(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
-int	printf_ws(va_list ap, t_conv *obj)
+int		printf_ws(va_list ap, t_conv *obj)
 {
 	obj->len.l = 1;
 	return (printf_s(ap, obj));

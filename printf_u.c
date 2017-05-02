@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-char *call_len_u(va_list ap, t_conv *obj)
+char	*call_len_u(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
 		return (ft_usctoa_base(va_arg(ap, unsigned int), 10));
@@ -30,7 +30,7 @@ char *call_len_u(va_list ap, t_conv *obj)
 		return (ft_utoa_base(va_arg(ap, unsigned int), 10));
 }
 
-int	printf_u(va_list ap, t_conv *obj)
+int		printf_u(va_list ap, t_conv *obj)
 {
 	char	*tmp;
 
@@ -45,7 +45,7 @@ int	printf_u(va_list ap, t_conv *obj)
 	return (obj->size);
 }
 
-int	printf_U(va_list ap, t_conv *obj)
+int		printf_lu(va_list ap, t_conv *obj)
 {
 	obj->len.l = 1;
 	return (printf_u(ap, obj));

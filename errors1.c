@@ -16,14 +16,20 @@ int		flag_c(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space || obj->flags.hash
 		|| obj->flags.zero)
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with flag:", print_flag(obj)))));
+	}
 	if (any_len(obj))
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with len:", print_len(obj)))));
+	}
 	if (obj->conv == 'C' && any_len(obj))
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			" does work with any len")));
+	}
 	return (1);
 }
 
@@ -31,14 +37,20 @@ int		flag_s(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space || obj->flags.hash
 		|| obj->flags.zero)
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with flag:", print_flag(obj)))));
+	}
 	if (any_len(obj))
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with len:", print_len(obj)))));
+	}
 	if (obj->conv == 'S' && any_len(obj))
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			" does work with any len")));
+	}
 	return (1);
 }
 
@@ -46,11 +58,15 @@ int		flag_p(t_conv *obj)
 {
 	if (obj->flags.plus || obj->flags.space || obj->flags.hash
 		|| obj->flags.zero)
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			ft_strjoin(" does work with flag:", print_flag(obj)))));
+	}
 	if (any_len(obj) || obj->len.l)
+	{
 		return ((int)error(ft_strjoin(ft_strjoin(" conv:", &obj->conv),
 			" does work with any len")));
+	}
 	return (1);
 }
 

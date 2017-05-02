@@ -54,7 +54,7 @@ int		search_params(va_list ap, const char *str, char **rtn, int count)
 	{
 		count = i;
 		if (str[i] == '%' && !(tmp = set_up_conv(ap, str, &i, &con)) && !con)
-				return (0);
+			return (0);
 		if (tmp)
 		{
 			*rtn = first_or(*rtn, tmp, count++);
@@ -67,7 +67,6 @@ int		search_params(va_list ap, const char *str, char **rtn, int count)
 				i++;
 		}
 	}
-
 	return (1);
 }
 

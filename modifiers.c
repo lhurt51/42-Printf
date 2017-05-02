@@ -26,13 +26,12 @@ char	*switch_width(t_conv *obj, char *str, char *space, unsigned int len)
 		while (++len < obj->width)
 			str = ft_strjoin(space, str);
 	}
-
 	return (str);
 }
 
 char	*modify_width(t_conv *obj, char *str)
 {
-	unsigned int 	len;
+	unsigned int	len;
 	char			*space;
 
 	len = ft_strlen(str) - obj->flags.plus;
@@ -45,13 +44,12 @@ char	*modify_width(t_conv *obj, char *str)
 	if (len < obj->width)
 		str = switch_width(obj, str, space, len);
 	ft_strdel(&space);
-	
 	return (str);
 }
 
 char	*modify_prec(t_conv *obj, char *str)
 {
-	unsigned int 	len;
+	unsigned int	len;
 	char			*ext;
 
 	len = ft_strlen(str);
@@ -63,6 +61,5 @@ char	*modify_prec(t_conv *obj, char *str)
 			str = ft_strjoin(ext, str);
 	}
 	ft_strdel(&ext);
-
 	return (str);
 }

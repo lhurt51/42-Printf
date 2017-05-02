@@ -36,19 +36,19 @@ int	check_conv(va_list ap, t_conv *obj, char c)
 	if (c == 'd' || c == 'i')
 		return (printf_d(ap, obj));
 	else if (c == 'D')
-		return (printf_D(ap, obj));
+		return (printf_ld(ap, obj));
 	else if (c == 'u')
 		return (printf_u(ap, obj));
 	else if (c == 'U')
-		return (printf_U(ap, obj));
+		return (printf_lu(ap, obj));
 	else if (c == 'o')
 		return (printf_o(ap, obj));
 	else if (c == 'O')
-		return (printf_O(ap, obj));
+		return (printf_lo(ap, obj));
 	else if (c == 'x')
 		return (printf_x(ap, obj));
 	else if (c == 'X')
-		return (printf_X(ap, obj));
+		return (printf_lx(ap, obj));
 	else
 		return (check_conv1(ap, obj, c));
 }

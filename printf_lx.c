@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_X.c                                         :+:      :+:    :+:   */
+/*   printf_lx.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhurt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-char *call_len_X(va_list ap, t_conv *obj)
+char	*call_len_lx(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
 		return (ft_usctoa_base(va_arg(ap, unsigned int), 16));
@@ -30,11 +30,11 @@ char *call_len_X(va_list ap, t_conv *obj)
 		return (ft_utoa_base(va_arg(ap, unsigned int), 16));
 }
 
-int	printf_X(va_list ap, t_conv *obj)
+int		printf_lx(va_list ap, t_conv *obj)
 {
 	char			*tmp;
 
-	tmp = call_len_X(ap, obj);
+	tmp = call_len_lx(ap, obj);
 	if (obj->b_prec)
 		tmp = modify_prec(obj, tmp);
 	if (obj->flags.hash && tmp[0] != '0')

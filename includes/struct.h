@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhurt <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,14 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
-# include "libft/libft.h"
-# include <stdarg.h>
-# include "includes/struct_func.h"
-# include "includes/str_func.h"
+typedef struct		s_flags
+{
+	int				plus:1;
+	int				minus:1;
+	int				space:1;
+	int				hash:1;
+	int				zero:1;
+}					t_flags;
 
-int		ft_printf(const char *str, ...);
+typedef struct		s_len
+{
+	int				hh:1;
+	int				h:1;
+	int				l:1;
+	int				ll:1;
+	int				j:1;
+	int				z:1;
+}					t_len;
+
+typedef struct		s_conv
+{
+	char			*rtn;
+	char			conv;
+	int				b_con:1;
+	int				b_prec:1;
+	t_flags			flags;
+	t_len			len;
+	unsigned int	width;
+	unsigned int	prec;
+	unsigned int	size;
+}					t_conv;
 
 #endif

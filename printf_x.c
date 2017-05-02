@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-char *call_len_x(va_list ap, t_conv *obj)
+char	*call_len_x(va_list ap, t_conv *obj)
 {
 	if (obj->len.hh)
 		return (ft_usctoa_base(va_arg(ap, unsigned int), 16));
@@ -30,7 +30,7 @@ char *call_len_x(va_list ap, t_conv *obj)
 		return (ft_utoa_base(va_arg(ap, unsigned int), 16));
 }
 
-int	printf_x(va_list ap, t_conv *obj)
+int		printf_x(va_list ap, t_conv *obj)
 {
 	char			*tmp;
 
