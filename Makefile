@@ -91,8 +91,23 @@ LFLAG =	-L libft/ -lft
 NAME =	libftprintf.a
 
 SRCS =	main.c \
+		printf_d.c \
+		printf_u.c \
+		printf_o.c \
+		printf_x.c \
+		printf_X.c \
+		printf_s.c \
+		printf_extra.c \
+		modifiers.c \
+		conversions.c \
+		flags.c \
+		len.c \
+		checks.c \
+		errors.c \
+		errors1.c \
 		itoa_base.c \
 		tools.c \
+		wstr_helpers.c \
 
 FDIR = frame/
 

@@ -30,72 +30,22 @@ char	*str_low(char *str)
 	return (str);
 }
 
-int		wchar_len(wchar_t num)
+void	set_struct(t_conv *obj)
 {
-	if (num <= 0x7F)
-		return (1);
-	else if (num <= 0x7FF)
-		return (2);
-	else if (num <= 0xFFFF)
-		return (3);
-	else if (num <= 0x10FFFF)
-		return (4);
-	else
-		return (0);
-}
-
-char	*wchar_to_str(wchar_t num)
-{
-	char *str;
-
-	if (!(str = ft_strnew(wchar_len(num) + 1)))
-		return (NULL);
-	if (num <= 0x7F)
-		str[0] = num;
-	else if (num <= 0x7FF)
-	{
-		str[0] = 192 | (((unsigned int)(num) >> 6) & 63);
-		str[1] = 128 | ((unsigned int)(num) & 63);
-	}
-	else if (num <= 0xFFFF)
-	{
-		str[0] = 224 | (((unsigned int)(num) >> 12) & 63);
-		str[1] = 128 | (((unsigned int)(num) >> 6) & 63);
-		str[2] = 128 | ((unsigned int)(num) & 63);
-	}
-	else if (num <= 0x10FFFF)
-	{
-		str[0] = 240 | (((unsigned int)(num) >> 18) & 63);
-		str[1] = 224 | (((unsigned int)(num) >> 12) & 63);
-		str[2] = 128 | (((unsigned int)(num) >> 6) & 63);
-		str[3] = 128 | ((unsigned int)(num) & 63);
-	}
-	return (str);
-}
-
-int		wstr_len(wchar_t *str)
-{
-	int len;
-
-	len = 0;
-	while (*str)
-		len += wchar_len((*str)++);
-	return (len);
-}
-
-char	*wstr_to_str(wchar_t *str)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (*str)
-	{
-		if (i++ == 0)
-			tmp = wchar_to_str(*str);
-		else
-			tmp = ft_strjoin(tmp, wchar_to_str(*str));
-		str++;
-	}
-	return (tmp);
+	obj->b_con = 0;
+	obj->b_prec = 0;
+	obj->size = 0;
+	obj->flags.plus = 0;
+	obj->flags.minus = 0;
+	obj->flags.space = 0;
+	obj->flags.hash = 0;
+	obj->flags.zero = 0;
+	obj->len.hh = 0;
+	obj->len.h = 0;
+	obj->len.l = 0;
+	obj->len.ll = 0;
+	obj->len.j = 0;
+	obj->len.z = 0;
+	obj->width = 0;
+	obj->prec = 0;
 }

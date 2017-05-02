@@ -49,6 +49,7 @@ typedef struct		s_conv
 }					t_conv;
 
 void	*error(char *msg);
+void	set_struct(t_conv *obj);
 char	*str_low(char *str);
 int		wchar_len(wchar_t num);
 int		wstr_len(wchar_t *str);
@@ -67,6 +68,33 @@ char	*ft_usitoa_base(unsigned short int n, int base);
 char	*ft_jtoa_base(intmax_t n, int base);
 char	*ft_ujtoa_base(uintmax_t n, int base);
 char	*ft_ztoa_base(size_t n, int base);
+char	*modify_prec(t_conv *obj, char *str);
+char	*modify_width(t_conv *obj, char *str);
+int		check_conv(va_list ap, t_conv *obj, char c);
+int		check_flag(t_conv *obj, char c);
+char	*print_flag(t_conv *obj);
+int		any_len(t_conv *obj);
+int		check_len(t_conv *obj, const char *str);
+char	*print_len(t_conv *obj);
+int		check_all(va_list ap, t_conv *obj, const char *str, int *i);
+int		flag_d(t_conv *obj);
+int		flag_u(t_conv *obj);
+int		flag_o(t_conv *obj);
+int		flag_x(t_conv *obj);
+int		can_mix(t_conv *obj);
+int		printf_d(va_list ap, t_conv *obj);
+int		printf_D(va_list ap, t_conv *obj);
+int		printf_u(va_list ap, t_conv *obj);
+int		printf_U(va_list ap, t_conv *obj);
+int		printf_o(va_list ap, t_conv *obj);
+int		printf_O(va_list ap, t_conv *obj);
+int		printf_x(va_list ap, t_conv *obj);
+int		printf_X(va_list ap, t_conv *obj);
+int		printf_s(va_list ap, t_conv *obj);
+int		printf_ws(va_list ap, t_conv *obj);
+int		printf_c(va_list ap, t_conv *obj);
+int		printf_p(va_list ap, t_conv *obj);
+int		printf_per(t_conv *obj);
 int		ft_printf(const char *str, ...);
 // @$(CC) $(FLAG) $(OBJS) $(LFLAG) -o $(NAME)
 // http://www.cplusplus.com/reference/cstdio/printf/
